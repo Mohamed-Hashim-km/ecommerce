@@ -14,6 +14,7 @@ const products = [
   },
 ];
 const UserDashBoard = () => {
+  const user=JSON
   return (
     <Layout>
       <div className=" container mx-auto px-4 py-5 lg:py-8">
