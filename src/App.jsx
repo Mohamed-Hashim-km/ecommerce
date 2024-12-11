@@ -10,6 +10,10 @@ import UserDashBoard from "./screens/user/UserDashBoard";
 import AdminDashboard from "./screens/admin/AdminDashboard";
 import AddProducts from "./screens/admin/AddProducts";
 import UpdateProduct from "./screens/admin/UpdateProduct";
+import { ProtectedRouteUser } from "./ProtectedRoute/ProtectedRouteUser";
+import { ProtectedRouteAdmin } from "./ProtectedRoute/ProtectedRouteAdmin";
+// import ProtectedRouteUser from "./ProtectedRoute/ProtectedRouteUser";
+
 
 function App() {
   return (
@@ -22,14 +26,14 @@ function App() {
         <Route path="/allProduct" element={<AllProduct />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/user-dashboard" element={<UserDashBoard />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/user-dashboard" element={
+          <ProtectedRouteUser><UserDashBoard /></ProtectedRouteUser>} />
+        <Route path="/admin-dashboard" element={
+          <ProtectedRouteAdmin><AdminDashboard /></ProtectedRouteAdmin>} />
         <Route path="/addProduct" element={<AddProducts />} />
         <Route path="/updateProduct" element={<UpdateProduct />} />
-
-
-
       </Routes>
+      {/* <ProtectedRouteUser/> */}
     </>
   );
 }

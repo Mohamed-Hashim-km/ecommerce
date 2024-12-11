@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, fireDB } from "../../firebase/FirebaseConfig";
+import { collection, doc, getDoc, query } from "firebase/firestore";
 
 const products = [
   {
@@ -13,8 +16,32 @@ const products = [
     quantity: 1,
   },
 ];
+ 
+
+
+
 const UserDashBoard = () => {
-  const user=JSON
+
+  const [user,setUser]=useState([])
+    
+   const recentLoggedUser=async (userid)=>{
+           const productAll=query(doc(fireDB,"user",userid));
+            const querysnapshot=await getDoc(productAll)
+            console.log(querysnapshot.data());
+            setUser(querysnapshot.data())     
+   }
+
+
+   
+
+  useEffect(()=>{
+      onAuthStateChanged(auth,(user)=>{
+        recentLoggedUser(user.uid);
+      })
+  },[auth])
+
+  
+ 
   return (
     <Layout>
       <div className=" container mx-auto px-4 py-5 lg:py-8">
@@ -27,14 +54,18 @@ const UserDashBoard = () => {
               <img src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="" />
             </div>
             {/* text  */}
-            <div className="">
+            
+            
+               <div className="" >
               <h1 className=" text-center text-lg">
-                <span className=" font-bold">Name :</span> Kamal Nayan Upadhyay
+                <span className=" font-bold">Name :</span>{user.name}
               </h1>
               <h1 className=" text-center text-lg">
-                <span className=" font-bold">Email :</span> test@gmail.com
+                <span className=" font-bold">Email :</span> {user.email}
               </h1>
             </div>
+             
+            
           </div>
         </div>
         {/* bottom  */}

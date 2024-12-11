@@ -1,12 +1,95 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 import ProductDetail from './ProductDetail'
 import OrderDetail from './OrderDetail'
 import UserDetail from './UserDetail'
+import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore'
+import { auth, fireDB } from '../../firebase/FirebaseConfig'
+import { useNavigate, useParams } from 'react-router-dom'
+import { onAuthStateChanged } from 'firebase/auth'
+import { loggedHandler } from '../../store/isWork'
+import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const AdminDashboard = () => {
+      
+    const [product, setProduct] = useState([]);
+    const [user,setUser]=useState([])
+    const dispatch=useDispatch()
+
+    const navigate=useNavigate()
+
+     
+    
+    const addAllProducts = async () => {
+        const snapshot = await getDocs(collection(fireDB, "products"));
+        const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
+        console.log(data);
+    
+        setProduct(data);
+       
+      };
+      // console.log(product);
+      useEffect(() => {
+        addAllProducts();
+      },[]);
+
+
+      const Allusers = async () => {
+        const snapshot = await getDocs(collection(fireDB, "user"));
+        const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
+        console.log(data);
+    
+        setUser(data);
+       
+      };
+
+      console.log(user);
+      
+      // console.log(product);
+      useEffect(() => {
+        Allusers();
+      }, []);
+
+
+
+
+      const [admin,setadmin]=useState([])
+    
+      const recentLoggedUser=async (userid)=>{
+              const productAll=query(doc(fireDB,"user",userid));
+               const querysnapshot=await getDoc(productAll)
+               console.log(querysnapshot.data());
+               setadmin(querysnapshot.data())     
+      }
+   
+   
+      console.log(admin);
+
+
+      const LoggoutHandler=()=>{
+        auth.signOut().then(()=>{
+          toast.success("Admin Logout Succussfully")
+          dispatch(loggedHandler(false))
+          navigate("/")
+          
+        }).catch((error)=>{
+          toast.error("Error")
+           console.log(error);
+        })
+      }
+      
+   
+     useEffect(()=>{
+         onAuthStateChanged(auth,(user)=>{
+           recentLoggedUser(user.uid);
+         })
+     },[auth])
+
+
   return (
     <div>
+        <button onClick={LoggoutHandler} className="px-5 py-2 bg-pink-50 border border-pink-100 rounded-lg">Logout</button>
     {/* Top */}
     <div className="top mb-5 px-5 mt-5">
         <div className=" bg-pink-50 py-5 border border-pink-100 rounded-lg">
@@ -24,8 +107,8 @@ const AdminDashboard = () => {
                 </div>
                 {/* text  */}
                 <div className="">
-                    <h1 className=" text-center text-lg text-pink-500"><span className=" font-bold">Name :</span> Kamal Nayan Upadhyay</h1>
-                    <h1 className=" text-center text-lg text-pink-500"><span className=" font-bold">Email :</span> test@gmail.com</h1>
+                    <h1 className=" text-center text-lg text-pink-500"><span className=" font-bold">Name :</span>{admin.name} </h1>
+                    <h1 className=" text-center text-lg text-pink-500"><span className=" font-bold">Email :</span> {admin.email}</h1>
                 </div>
             </div>
         </div>
@@ -58,12 +141,12 @@ const AdminDashboard = () => {
                                 <path d="m15 11-1 9" />
                             </svg>
                         </div>
-                        <h2 className="title-font font-medium text-3xl text-pink-400 fonts1" >10</h2>
+                        <h2 className="title-font font-medium text-3xl text-pink-400 fonts1" >{product.length}</h2>
                         <p className=" text-pink-500  font-bold" >Total Products</p>
                     </div>
                 </Tab>
                 {/* Total Order  */}
-                <Tab className="p-4 md:w-1/4 sm:w-1/2 w-full cursor-pointer">
+                {/* <Tab className="p-4 md:w-1/4 sm:w-1/2 w-full cursor-pointer">
                     <div className=" border bg-pink-50 hover:bg-pink-100 border-pink-100 px-4 py-3 rounded-xl" >
                         <div className="text-pink-500 w-12 h-12 mb-3 inline-block" >
                             <svg
@@ -89,7 +172,7 @@ const AdminDashboard = () => {
                         <h2 className="title-font font-medium text-3xl text-pink-400 fonts1" >10</h2>
                         <p className=" text-pink-500  font-bold" >Total Order</p>
                     </div>
-                </Tab>
+                </Tab>  */}
                 {/* Total User  */}
                 <Tab className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer">
                     <div className=" border bg-pink-50 hover:bg-pink-100 border-pink-100 px-4 py-3 rounded-xl" >
@@ -112,17 +195,17 @@ const AdminDashboard = () => {
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                             </svg>
                         </div>
-                        <h2 className="title-font font-medium text-3xl text-pink-400 fonts1" >10</h2>
-                        <p className=" text-pink-500  font-bold" >Total Order</p>
+                        <h2 className="title-font font-medium text-3xl text-pink-400 fonts1" >{user.length}</h2>
+                        <p className=" text-pink-500  font-bold" >Total users</p>
                     </div>
                 </Tab>
             </TabList>
             <TabPanel>
                 <ProductDetail/>
             </TabPanel>
-            <TabPanel>
+            {/* <TabPanel>
                 <OrderDetail/>
-            </TabPanel>
+            </TabPanel> */}
             <TabPanel>
                 <UserDetail/>
             </TabPanel>

@@ -13,19 +13,19 @@ const HeroSection = () => {
       transition={{ type: "tween", duration: 0.5 }} // Smooth transition
     >
       <img
-        src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
+        src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/96394e0900c8983c.jpg?q=20"
         alt="image 1"
-        className="h-[30vh] w-full object-cover"
+        className="h-[50vh] w-full object-cover"
       />
       <img
-        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+        src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/07c59f7cf6a426bc.jpg?q=20"
         alt="image 2"
-        className="h-[30vh] w-full object-cover"
+        className="h-[50vh] w-full object-cover"
       />
       <img
-        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+        src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/8074e7b2f6d2bfea.jpg?q=20"
         alt="image 3"
-        className="h-[30vh] w-full object-cover"
+        className="h-[50vh] w-full object-cover"
       />
     </Carousel>
  </>

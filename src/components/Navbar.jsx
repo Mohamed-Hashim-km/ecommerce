@@ -1,58 +1,72 @@
 import React from "react";
 import Searchbar from "./Searchbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loggedHandler } from "../store/isWork";
+import { auth } from "../firebase/FirebaseConfig";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const isLog = useSelector((state) => state.loaderState.isLogged);
+  console.log(isLog);
+  
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  
+
+
+  const LoggoutHandler=()=>{
+    auth.signOut().then(()=>{
+      toast.success("Logout")
+      dispatch(loggedHandler(false))
+      navigate("/")
+      
+
+    }).catch(()=>{
+      toast.error("Error")
+    })
+  }
+
 
   return (
     <nav className="bg-gray-600 sticky top-0 z-[999]">
-      {/* main  */}
       <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
-        {/* left  */}
         <div className="left py-3 lg:py-0">
           <Link to={"/"}>
             <h2 className=" font-bold text-white text-2xl text-center">E-Shop</h2>
           </Link>
         </div>
-        {/* right  */}
         <div className="right flex justify-center mb-4 lg:mb-0">
         <ul className="flex space-x-3 text-white font-medium text-md px-5 ">
-            {/* Home */}
+            
             <li>
                 <Link to={'/'}>Home</Link>
             </li>
-            {/* All Product */}
+            
             <li>
                 <Link to={'/allproduct'}>All Product</Link>
             </li>
-            {/* Signup */}
-            <li>
+            {!isLog&&<li>
                 <Link to={'/signup'}>Signup</Link>
-            </li> 
-            {/* Signup */}
-            <li>
+            </li> }
+            {!isLog&&<li>
                 <Link to={'/login'}>Login</Link>
-            </li> 
-            {/* User */}
-            <li>
+            </li> }
+            {isLog&&<li>
                 <Link to={'/user-dashboard'}>User</Link>
-            </li>
-            {/* Admin */}
-            <li>
+            </li>}
+            {/* <li>
                 <Link to={'/admin-dashboard'}>Admin</Link>
-            </li>
-            {/* logout */}
-           <li className=" cursor-pointer" >
-            logout
-            </li>
-            {/* Cart */}
-            <li>
-                <Link to={'/cart'}>
+            </li> */}
+           {isLog&&<li className=" cursor-pointer" onClick={LoggoutHandler} >
+            Logout
+            </li>}
+            {isLog&&<li>
+                <Link to={'/cartPage'}>Cart
                 </Link>
-            </li>
+            </li>}
         </ul>
         </div>
-        {/* Search Bar  */}
         <Searchbar />
       </div>
     </nav>

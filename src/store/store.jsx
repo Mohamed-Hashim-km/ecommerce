@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { loadeReducer } from "./loaderSlicer";
+import { productReducer } from "./productData";
+import { isWorkReducer } from "./isWork";
 
 export const store = configureStore({
     reducer:{
-        loaderState:loadeReducer
+        loaderState:isWorkReducer,
+        productState:productReducer
         
     }
 })

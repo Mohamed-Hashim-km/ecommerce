@@ -1,112 +1,89 @@
-import React, { useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { auth, fireDB } from '../../firebase/FirebaseConfig';
-import { doc, setDoc } from 'firebase/firestore';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { toast } from 'react-toastify';
-
+import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth, fireDB } from "../../firebase/FirebaseConfig";
+import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { loaderHandler } from "../../store/isWork";
+import Loader from "../../components/Loader";
 
 const Signup = () => {
-    const [isRole,setIsRole]=useState(false)
-    const registerName = useRef();
-    const registerEmail = useRef();
-    const registerPassword = useRef();
-  
-    const navigate = useNavigate();
-  
-    function register(name, email,password) {
-      createUserWithEmailAndPassword(auth, email, password).then((data) => {
-        const user=data.user;
-        const date=new Date();
-        
-       setDoc(doc(fireDB, "users",user.uid),{
-          name:name,
-          email:email,
-          password:password,
-          date:date.toLocaleDateString(),
-          role:isRole,
-        })
-        
-        
-  
-      })
-      .catch((err)=>{
-        toast('error is',err.message);
+  const name = useRef("");
+  const email = useRef("");
+  const password = useRef("");
+  const navigate = useNavigate();
+
+  const isLoader = useSelector((state) => state.loaderState.isLoading);
+  const dispatch = useDispatch();
+
+  const SighnupHandler = async (name, email, password) => {
+    if (name.current.value == "" || email.current.value == "" || password.current.value == "") {
+      return toast.warning("You Missed Somthing", {
+        toastId: 1,
       });
     }
-    return (
-      <>
-        <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
-          <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
-            <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 mt-12 flex flex-col items-cente">
-              <div className="mt-12 flex flex-col items-cente">
-                <div className="w-full flex-1 mt-8">
-                  
-  
-                  <div className="mx-auto max-w-xs">
-                    <input
-                      className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                      type="text"
-                      placeholder="Enter Name"
-                      ref={registerName}
-                    />
-                    <input
-                      className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                      type="email"
-                      placeholder="Email"
-                      ref={registerEmail}
-                    />
-  
-                    <input
-                      className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                      type="password"
-                      placeholder="Password"
-                      ref={registerPassword}
-                    />
-                    <button 
-                    type="button"
-                    onClick={()=>register(registerName.current.value,registerEmail.current.value,registerPassword.current.value)}
-                    className="mt-5 tracking-wide font-semibold bg-green-400 text-white-500 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-                      <svg
-                        className="w-6 h-6 -ml-2"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                        <circle cx="8.5" cy="7" r="4" />
-                        <path d="M20 8v6M23 11h-6" />
-                      </svg>
-                      <span className="ml-">Sign In</span>
-                    </button>
-                    <div className="mt-6 text-xs text-gray-600 text-center">
-                      <p className=" text-base my-3">
-                    <Link to={"/signin"}>Already have an acount? <span className=" text-blue-600">SignIn</span></Link>
-  
-                      </p>
-                      I agree to abide by Cartesian Kinetics
-                      <a href="#" className="border-b border-gray-500 border-dotted">
-                        Terms of Service
-                      </a>
-                      and its
-                      <a href="#" className="border-b border-gray-500 border-dotted">
-                        Privacy Policy
-                      </a>
-                    </div>
-                  </div>
-                </div>
-            </div></div>
-            <div className="flex-1 bg-green-100 text-center hidden lg:flex">
-              <div
-                className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
-              ></div>
-            </div>
+
+    dispatch(loaderHandler(true));
+
+    try {
+      const data = await createUserWithEmailAndPassword(auth, email.current.value, password.current.value);
+      const user = data.user;
+      const date = new Date();
+
+      setDoc(doc(fireDB, "user", user.uid), {
+        name: name.current.value,
+        email: user.email,
+        uid: user.uid,
+        date: date.toLocaleDateString(),
+        role: false,
+        time: date.toLocaleTimeString(),
+      });
+
+      toast.success("Signed SuccussFully");
+      navigate("/login");
+      dispatch(loaderHandler(false));
+    } catch (error) {
+      console.log(error);
+      toast.error("Email Alredy Used")
+      dispatch(loaderHandler(false));
+    }
+  };
+
+  return (
+    <>
+      {isLoader && <Loader />}
+      <div className="flex justify-center items-center h-screen">
+        <div className="login_Form bg-pink-50 px-8 py-6 border border-pink-100 rounded-xl shadow-md">
+          <div className="mb-5">
+            <h2 className="text-center text-2xl font-bold text-pink-500 "></h2>
+          </div>
+          <div className="mb-3">
+            <input type="text" placeholder="Full Name" ref={name} className="bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
+          </div>
+          <div className="mb-3">
+            <input type="email" placeholder="Email Address" ref={email} className="bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
+          </div>
+          <div className="mb-5">
+            <input type="password" placeholder="Password" ref={password} className="bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
+          </div>
+          <div className="mb-5">
+            <button type="button" onClick={() => SighnupHandler(name, email, password)} className="bg-pink-500 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md ">
+              Signup
+            </button>
+          </div>
+          <div>
+            <h2 className="text-black">
+              Have an account{" "}
+              <Link className=" text-pink-500 font-bold" to={"/login"}>
+                Login
+              </Link>
+            </h2>
           </div>
         </div>
-      </>
-    );
-}
+      </div>
+    </>
+  );
+};
 
-export default Signup
+export default Signup;
