@@ -78,7 +78,7 @@ const Login = () => {
               onClick={() => LoginHandler(email.current.value, password.current.value)}
               className="bg-pink-500 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md "
             >
-              Signup
+              Login
             </button>
           </div>
           <div>

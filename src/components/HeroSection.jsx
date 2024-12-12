@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Carousel } from "@material-tailwind/react";
+import { loaderHandler, loggedHandler } from '../store/isWork';
+import { useDispatch } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase/FirebaseConfig';
 
 const HeroSection = () => {
+
+
+
   return (
     <>
  
- <Carousel
+ <Carousel 
       
       autoplay={true} // Enables autoplay
       autoplayDelay={3000} // Auto move every 3000ms (3 seconds)

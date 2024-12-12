@@ -3,6 +3,8 @@ import Layout from "../../components/Layout";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import { collection, doc, getDoc, query } from "firebase/firestore";
+import { loggedHandler } from "../../store/isWork";
+import { useDispatch } from "react-redux";
 
 const products = [
   {
@@ -23,10 +25,12 @@ const products = [
 const UserDashBoard = () => {
 
   const [user,setUser]=useState([])
+
+
     
    const recentLoggedUser=async (userid)=>{
-           const productAll=query(doc(fireDB,"user",userid));
-            const querysnapshot=await getDoc(productAll)
+           const userDetail=query(doc(fireDB,"user",userid));
+            const querysnapshot=await getDoc(userDetail)
             console.log(querysnapshot.data());
             setUser(querysnapshot.data())     
    }
@@ -39,6 +43,9 @@ const UserDashBoard = () => {
         recentLoggedUser(user.uid);
       })
   },[auth])
+
+
+  
 
   
  

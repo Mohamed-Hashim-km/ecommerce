@@ -25,6 +25,8 @@ const ProductDetail = () => {
   const ProductEditHandler = () => {};
 
   const ProductDeleteHandler = async (id) => {
+    console.log(id);
+    
     try {
       await deleteDoc(doc(fireDB, "products", id));
       addAllProducts();

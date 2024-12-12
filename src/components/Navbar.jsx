@@ -1,17 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Searchbar from "./Searchbar";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedHandler } from "../store/isWork";
 import { auth } from "../firebase/FirebaseConfig";
 import { toast } from "react-toastify";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Navbar = () => {
   const isLog = useSelector((state) => state.loaderState.isLogged);
   console.log(isLog);
+
+  const [currentUser,setCurrentUser]=useState()
   
   const dispatch=useDispatch()
   const navigate=useNavigate()
+
+
+
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+  }, [auth]);
+
+  if(currentUser){
+
+    dispatch(loggedHandler(true));
+  }
+  else{
+    dispatch(loggedHandler(false));
+  }
+
+
+
+
   
 
 
@@ -58,13 +82,14 @@ const Navbar = () => {
             {/* <li>
                 <Link to={'/admin-dashboard'}>Admin</Link>
             </li> */}
-           {isLog&&<li className=" cursor-pointer" onClick={LoggoutHandler} >
-            Logout
-            </li>}
-            {isLog&&<li>
+             {isLog&&<li>
                 <Link to={'/cartPage'}>Cart
                 </Link>
             </li>}
+           {isLog&&<li className=" cursor-pointer" onClick={LoggoutHandler} >
+            Logout
+            </li>}
+           
         </ul>
         </div>
         <Searchbar />

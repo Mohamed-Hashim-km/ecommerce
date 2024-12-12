@@ -57,7 +57,7 @@ const AddProducts = () => {
   const dispatch = useDispatch();
 
   const addProductFunction = async () => {
-    if (product.title == "" || product.price == "" || product.productImageUrl == "" || product.category == "" || product.description == "") {
+    if (product.title == "" || product.price == "" || product.productImageUrl == "" || product.category == "" || product.description == ""||product.currentPrice=="") {
       return toast.error("all fields are required");
     }
 

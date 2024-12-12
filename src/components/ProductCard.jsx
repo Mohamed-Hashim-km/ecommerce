@@ -108,12 +108,11 @@ const ProductCard = () => {
     }
 
     const cartRef = collection(fireDB, "user", currentUser, "productCart");
-    const res = await getDocs(query(cartRef, where("id", "==", product.uid)));
+    const res = await getDocs(query(cartRef, where("uid", "==", product.uid)));
 
-    //    product going res empty//
     if (res.empty) {
       addDoc(collection(fireDB, "user", currentUser, "productCart"), {
-        id: product.uid,
+        uid: product.uid,
         description: product.description,
         price: product.price,
         currentPrice:product.currentPrice,
@@ -151,7 +150,7 @@ const ProductCard = () => {
               return (
                 <div key={index} className="p-4 w-full md:w-1/4">
                   <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer px-2">
-                    <img onClick={() => navigate("/productInfo")} className="lg:h-80  h-[30vh] w-full " src={item.productImageUrl} alt="blog" />
+                    <img onClick={() => navigate("/productInfo")} className="lg:h-80  h-full object-contain w-full py-5 " src={item.productImageUrl} alt="blog" />
                     <div className="p-6">
                       <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"></h2>
                       <h1 className="title-font text-lg font-medium text-gray-900 mb-3">{item.title}</h1>
