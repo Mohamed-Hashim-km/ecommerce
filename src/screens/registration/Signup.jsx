@@ -54,18 +54,18 @@ const Signup = () => {
     <>
       {isLoader && <Loader />}
       <div className="flex justify-center items-center h-screen">
-        <div className="login_Form bg-pink-50 px-8 py-6 border border-pink-100 rounded-xl shadow-md">
+        <div className="login_Form bg-white px-8 py-6 border border-pink-100 rounded-xl shadow-md">
           <div className="mb-5">
             <h2 className="text-center text-2xl font-bold text-pink-500 "></h2>
           </div>
           <div className="mb-3">
-            <input type="text" placeholder="Full Name" ref={name} className="bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
+            <input type="text" placeholder="Full Name" ref={name} className="bg-white border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
           </div>
           <div className="mb-3">
-            <input type="email" placeholder="Email Address" ref={email} className="bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
+            <input type="email" placeholder="Email Address" ref={email} className="bg-white border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
           </div>
           <div className="mb-5">
-            <input type="password" placeholder="Password" ref={password} className="bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
+            <input type="password" placeholder="Password" ref={password} className="bg-white border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
           </div>
           <div className="mb-5">
             <button type="button" onClick={() => SighnupHandler(name, email, password)} className="bg-pink-500 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md ">

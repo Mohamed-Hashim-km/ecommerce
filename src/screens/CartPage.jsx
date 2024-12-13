@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { Trash } from "lucide-react";
-import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { auth, fireDB } from "../firebase/FirebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { loggedHandler } from "../store/isWork";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const [cart, setCart] = useState([]);
   const [currentUser, setcurrentUser] = useState();
   const [currentUserEmail,setCurrentUserEmail]=useState()
+  const navigate=useNavigate()
 
 
   
@@ -48,15 +50,15 @@ const CartPage = () => {
 
 
   const priceItem = cart.reduce((acc, value) => {
-    return (acc += Number(value.price));
+    return (acc += Number(value.price)*Number(value.quantity));
   }, 0);
 
   const dicount = cart.reduce((acc, value) => {
-    return acc + (Number(value.price) - Number(value.currentPrice));
+    return acc + (((Number(value.price) - Number(value.currentPrice))*Number(value.quantity)));
   }, 0);
 
-  const total = cart.reduce((acc, value) => {
-    return acc + value.currentPrice;
+  const totalItem = cart.reduce((acc, value) => {
+    return acc + value.quantity;
   }, 0);
 
   const CartRemoveHandler = async (id) => {
@@ -81,6 +83,7 @@ const CartPage = () => {
       console.log(res);
 
       if (res.empty) {
+        const date = new Date();
         addDoc(collection(fireDB, "user", currentUser, "buyedItems"), {
           uid: product.uid,
           description: product.description,
@@ -88,7 +91,13 @@ const CartPage = () => {
           currentPrice: product.currentPrice,
           productImageUrl: product.productImageUrl,
           quantity: product.quantity,
+          category:product.category,
           title: product.title,
+          orderId:Date.now(),
+          status:"OrederConfirmed",
+          date: date.toLocaleDateString(),
+          time:new Date().toLocaleTimeString()
+
         });
         addDoc(collection(fireDB,"saleItmes"),{
             uid: product.uid,
@@ -98,11 +107,18 @@ const CartPage = () => {
             productImageUrl: product.productImageUrl,
             quantity: product.quantity,
             title: product.title,
+            category:product.category,
             email:currentUserEmail,
+            orderId: Date.now(),
+            status:"OrederConfirmed",
+            date: date.toLocaleDateString(),
+            time:new Date().toLocaleTimeString()
+
+
         })
         toast.success("Buy SuccessFully");
       } else {
-        toast.error("product alredy in the cart", {
+        toast.error("error", {
           toastId: 1,
         });
       }
@@ -128,12 +144,22 @@ const CartPage = () => {
 
 
 
+  const CheckOutHandlerDelete = async (id) => {
+    try {
+      await deleteDoc(doc(fireDB, "user", currentUser, "productCart", id));
+      CartListHandler();
+    } catch (error) {
+      console.error("Error deleting product: ", error);
+    }
+  };
+
    const CheckOutHandler=async()=>{
 
     try {
-        // Add documents to the "buyedItems" collection
+      const date = new Date();
          cart.map((product) => {
-            CartRemoveHandler(product.id)
+          CheckOutHandlerDelete(product.id)
+          
           return addDoc(collection(fireDB, "user", currentUser, "buyedItems"), {
             uid: product.uid,
             description: product.description,
@@ -142,12 +168,21 @@ const CartPage = () => {
             productImageUrl: product.productImageUrl,
             quantity: product.quantity,
             title: product.title,
+            category:product.category,
+            orderId:Date.now(),
+            status:"OrederConfirmed",
+            date: date.toLocaleDateString(),
+            email:currentUserEmail,
+            time:new Date().toLocaleTimeString()
+
+
           });
         });
-    
+        
         // Add documents to the "saleItems" collection
         cart.map((product) => {
-            CartRemoveHandler(product.id)
+          CheckOutHandlerDelete(product.id)
+          
           return addDoc(collection(fireDB, "saleItems"), {
             uid: product.uid,
             description: product.description,
@@ -156,6 +191,14 @@ const CartPage = () => {
             productImageUrl: product.productImageUrl,
             quantity: product.quantity,
             title: product.title,
+            category:product.category,
+            date: date.toLocaleDateString(),
+            orderId:Date.now(),
+            status:"OrederConfirmed",
+            email:currentUserEmail,
+            time:new Date().toLocaleTimeString()
+          
+            
           });
         });
         toast.success("Buy SuccessFully")
@@ -173,6 +216,60 @@ const CartPage = () => {
    }
 
 
+
+   const QuantityIncrementHandler=async(id)=>{
+           
+             try {
+              const docRef =await getDoc(doc(fireDB,"user",currentUser,"productCart",id));   
+              const products= { uid: docRef.id, ...docRef.data() }
+              console.log(products);
+
+
+             setDoc(doc(fireDB,"user",currentUser,"productCart",id),{
+               ...products,
+             quantity:products.quantity+1
+               
+            })
+            CartListHandler()
+
+              
+             } catch (error) {
+              console.log(error);
+              
+              
+             }
+                 
+               
+   }
+
+
+   const QuantityDecrementHandler=async(id)=>{
+           
+    try {
+     const docRef =await getDoc(doc(fireDB,"user",currentUser,"productCart",id));   
+     const products= { uid: docRef.id, ...docRef.data() }
+     console.log(products);
+
+    if(products.quantity>1){
+    setDoc(doc(fireDB,"user",currentUser,"productCart",id),{
+      ...products,
+    quantity:products.quantity-1
+      
+   })
+   CartListHandler()
+  }
+
+     
+    } catch (error) {
+     console.log(error);
+     
+     
+    }
+        
+      
+}
+
+
   return (
     <Layout>
       <div className="container mx-auto  max-w-7xl px-2 lg:px-0">
@@ -186,7 +283,7 @@ const CartPage = () => {
                   <div key={product.uid} className="">
                     <li className="flex py-6 sm:py-6 ">
                       <div className="flex-shrink-0">
-                        <img src={product.productImageUrl} alt={product.title} className="sm:h-38 sm:w-38 h-24 w-24 rounded-md object-contain object-center" />
+                        <img onClick={()=>navigate(`/productInfo/${product.id}`)} src={product.productImageUrl} alt={product.title} className="sm:h-38 sm:w-38 h-24 w-24 rounded-md object-contain object-center" />
                       </div>
 
                       <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
@@ -210,11 +307,11 @@ const CartPage = () => {
                     </li>
                     <div className="mb-2 flex">
                       <div className="min-w-24 flex">
-                        <button type="button" className="h-7 w-7">
+                        <button onClick={()=>QuantityDecrementHandler(product.id)} type="button" className="h-7 w-7">
                           -
                         </button>
-                        <input type="text" className="mx-1 h-7 w-9 rounded-md border text-center" defaultValue={1} />
-                        <button type="button" className="flex h-7 w-7 items-center justify-center">
+                        <input type="text" className="mx-1 h-7 w-9 rounded-md border text-center" value={product.quantity} />
+                        <button onClick={()=>QuantityIncrementHandler(product.id)} type="button" className="flex h-7 w-7 items-center justify-center">
                           +
                         </button>
                       </div>
@@ -236,13 +333,18 @@ const CartPage = () => {
                 ))}
               </ul>
             </section>
-            {/* Order summary */}
             <section aria-labelledby="summary-heading" className="mt-16 rounded-md bg-white lg:col-span-4 lg:mt-0 lg:p-0">
               <h2 id="summary-heading" className=" border-b border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 sm:p-4"></h2>
               <div>
-                <dl className=" space-y-1 px-2 py-4">
+                <dl className=" space-y-1 px-2 py-2">
+                <div className="flex items-center justify-between py-4">
+                    <dt className="flex items-center text-sm text-gray-800">
+                      <span>Total Items</span>
+                    </dt>
+                    <dd className="text-sm font-medium text-black">{totalItem}</dd>
+                  </div>
                   <div className="flex items-center justify-between">
-                    <dt className="text-sm text-gray-800">Items({cart.length})</dt>
+                    <dt className="text-sm text-gray-800">Orginal Price</dt>
                     <dd className="text-sm font-medium text-gray-900">₹ {priceItem}</dd>
                   </div>
                   <div className="flex items-center justify-between pt-4">

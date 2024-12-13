@@ -14,10 +14,10 @@ const HeroSection = () => {
  
  <Carousel 
       
-      autoplay={true} // Enables autoplay
-      autoplayDelay={3000} // Auto move every 3000ms (3 seconds)
-      loop={true} // Enables looping of carousel
-      transition={{ type: "tween", duration: 0.5 }} // Smooth transition
+      autoplay={true} 
+      autoplayDelay={3000} 
+      loop={true} 
+      transition={{ type: "tween", duration: 0.5 }} 
     >
       <img
         src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/96394e0900c8983c.jpg?q=20"
