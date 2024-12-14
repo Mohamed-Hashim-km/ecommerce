@@ -24,6 +24,8 @@ const Signup = () => {
       });
     }
 
+    const names = name.current.value;
+
     dispatch(loaderHandler(true));
 
     try {
@@ -32,7 +34,7 @@ const Signup = () => {
       const date = new Date();
 
       setDoc(doc(fireDB, "user", user.uid), {
-        name: name.current.value,
+        name: names,
         email: user.email,
         uid: user.uid,
         date: date.toLocaleDateString(),
@@ -45,43 +47,49 @@ const Signup = () => {
       dispatch(loaderHandler(false));
     } catch (error) {
       console.log(error);
-      toast.error("Email Alredy Used")
+      toast.error("Email Alredy Used");
       dispatch(loaderHandler(false));
     }
   };
 
   return (
     <>
-      {isLoader && <Loader />}
-      <div className="flex justify-center items-center h-screen">
-        <div className="login_Form bg-white px-8 py-6 border border-pink-100 rounded-xl shadow-md">
-          <div className="mb-5">
-            <h2 className="text-center text-2xl font-bold text-pink-500 "></h2>
-          </div>
-          <div className="mb-3">
-            <input type="text" placeholder="Full Name" ref={name} className="bg-white border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
-          </div>
-          <div className="mb-3">
-            <input type="email" placeholder="Email Address" ref={email} className="bg-white border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
-          </div>
-          <div className="mb-5">
-            <input type="password" placeholder="Password" ref={password} className="bg-white border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200" />
-          </div>
-          <div className="mb-5">
-            <button type="button" onClick={() => SighnupHandler(name, email, password)} className="bg-pink-500 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md ">
-              Signup
-            </button>
-          </div>
-          <div>
-            <h2 className="text-black">
-              Have an account{" "}
-              <Link className=" text-pink-500 font-bold" to={"/login"}>
-                Login
-              </Link>
-            </h2>
-          </div>
+      {isLoader ? (
+        <div className="bg-white min-h-screen flex justify-center items-center">
+          {" "}
+          <Loader />
         </div>
-      </div>
+      ) : (
+        <main className="mx-auto flex min-h-screen  w-full items-center justify-center bg-gray-900 text-white">
+          <section className="flex w-[30rem] flex-col space-y-10">
+            <div className="text-center text-4xl font-medium">Sign In</div>
+            <div className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+              <input ref={name} type="text" placeholder="Name" className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none" />
+            </div>
+            <div className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+              <input ref={email} type="text" placeholder="Email" className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none" />
+            </div>
+
+            <div className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
+              <input ref={password} type="password" placeholder="Password" className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none" />
+            </div>
+
+            <button onClick={() => SighnupHandler(name, email, password)} type="button" className="transform rounded-sm bg-indigo-600 py-2 font-bold duration-300 hover:bg-indigo-400">
+              LOG IN
+            </button>
+
+            <p className="text-center text-lg">
+              Have account?
+              <a href="#" className="font-medium text-indigo-500 underline-offset-4 hover:underline">
+                {" "}
+                <Link className=" text-pink-500 font-bold" to={"/login"}>
+                  Login
+                </Link>
+              </a>
+            </p>
+          </section>
+        </main>
+      )}
     </>
   );
 };

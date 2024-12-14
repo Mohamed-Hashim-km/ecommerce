@@ -4,8 +4,10 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import { collection, deleteDoc, doc, getDoc, getDocs, query } from "firebase/firestore";
 import { loggedHandler } from "../../store/isWork";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { loaderHandler } from "../../store/isWork";
+import Loader from "../../components/Loader";
 
 const products = [
   {
@@ -26,17 +28,25 @@ const UserDashBoard = () => {
   const [currentUser, setcurrentUser] = useState();
   console.log(buyList);
 
+  
+  const isLoader = useSelector((state) => state.loaderState.isLoading);
+  const dispatch = useDispatch();
+
   const UserBuyList = async () => {
+   
     const snapShot = await getDocs(collection(fireDB, "user", currentUser, "buyedItems"));
     const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     setBuyList(res);
+   
   };
 
   const recentLoggedUser = async (userid) => {
+   
     const userDetail = query(doc(fireDB, "user", userid));
     const querysnapshot = await getDoc(userDetail);
     console.log(querysnapshot.data());
     setUser(querysnapshot.data());
+    
   };
 
   useEffect(() => {
@@ -70,9 +80,9 @@ const UserDashBoard = () => {
 
   return (
     <Layout>
-      <div className=" container mx-auto px-4 py-5 lg:py-8">
+     {isLoader?<div className="bg-gray-900  justify-center flex min-h-screen items-center ">  <Loader /></div>: <div className=" container mx-auto px-4 py-5 lg:py-8">
         <div className="top ">
-          <div className=" bg-pink-50 py-5 rounded-xl border border-pink-100">
+          <div className=" bg-[#b7d1aa] py-5 rounded-xl border border-pink-100">
             <div className="flex justify-center">
               <img src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="" />
             </div>
@@ -151,7 +161,7 @@ const UserDashBoard = () => {
             </div>
           </div>
         </section>
-      </div>
+      </div>}
     </Layout>
   );
 };

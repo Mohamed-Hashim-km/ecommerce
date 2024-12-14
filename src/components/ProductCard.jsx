@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, limit, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, fireDB } from "../firebase/FirebaseConfig";
@@ -91,8 +91,10 @@ const ProductCard = () => {
     dispatch(loaderHandler(true));
     const snapshot = await getDocs(collection(fireDB, "products"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
-
-    setProduct(data);
+    
+    
+     
+    setProduct(data.slice(0,8));
     dispatch(loaderHandler(false));
   };
 

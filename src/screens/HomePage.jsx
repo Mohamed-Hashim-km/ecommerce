@@ -13,14 +13,16 @@ const HomePage = () => {
   return (
     
     <>
-   <Layout>
+
+   <Layout >
+    
     
     <HeroSection/>
     <Category/>
     <ProductCard/>
     <Track/>
     <TestiMonial/>
-    
+   
     </Layout>
     
     </>

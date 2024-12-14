@@ -12,6 +12,7 @@ import { ProtectedRouteUser } from "./ProtectedRoute/ProtectedRouteUser";
 import { ProtectedRouteAdmin } from "./ProtectedRoute/ProtectedRouteAdmin";
 import EditeProduct from "./screens/admin/EditeProduct";
 import Category from "./screens/Category";
+import AllProducts from "./components/AllProducts";
 // import ProtectedRouteUser from "./ProtectedRoute/ProtectedRouteUser";
 
 
@@ -21,6 +22,7 @@ function App() {
       <ScrollTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="allProducts" element={<AllProducts />} />
         <Route path="/productInfo/:id" element={<ProductInfo />} />
         <Route path="/cartPage" element={<CartPage />} />
         <Route path="/login" element={<Login />} />

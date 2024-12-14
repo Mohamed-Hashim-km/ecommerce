@@ -42,6 +42,8 @@ const Navbar = () => {
   };
 
   return (
+
+    <>
     <nav className="bg-gray-600 sticky top-0 z-[999] shadow-lg shadow-black">
       <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
         <div className="left py-3 lg:py-0">
@@ -53,6 +55,9 @@ const Navbar = () => {
           <ul className="flex space-x-3 text-white font-medium text-md px-5 ">
             <li>
               <Link to={"/"}>Home</Link>
+            </li>
+            <li>
+              <Link to={"/allProducts"}>All Products</Link>
             </li>
 
             {!isLog && (
@@ -70,6 +75,7 @@ const Navbar = () => {
                 <Link to={"/user-dashboard"}>User</Link>
               </li>
             )}
+             
 
             {isLog && (
               <li className="flex">
@@ -79,6 +85,7 @@ const Navbar = () => {
               </li>
               
             )}
+           
             {isLog && (
               <li className=" cursor-pointer" onClick={LoggoutHandler}>
                 Logout
@@ -88,7 +95,24 @@ const Navbar = () => {
         </div>
         <Searchbar />
       </div>
+      
+
+     
+
+
+
+
+
     </nav>
+
+
+
+   
+ 
+
+   
+
+    </>
   );
 };
 
