@@ -26,7 +26,7 @@ const categoryList = [
     name: "shoes",
   },
   {
-    name: "home",
+    name: "watches",
   },
   {
     name: "books",

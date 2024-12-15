@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { fireDB } from "../../firebase/FirebaseConfig";
 import { productDataStore } from "../../store/productData";
 import { useDispatch } from "react-redux";
+import Searchbar from "../../components/Searchbar";
+import ProductSeacrh from "./ProductSeacrh";
 const ProductDetail = ({GetAllProducts}) => {
   const [product, setProduct] = useState([]);
   const navigate = useNavigate();
@@ -40,9 +42,9 @@ const ProductDetail = ({GetAllProducts}) => {
       <div className="py-5 flex justify-between items-center">
         {/* text  */}
         <h1 className=" text-xl text-black font-bold">All Product</h1>
-
+        <ProductSeacrh/>
         <Link to={"/addProduct"}>
-          <button className="px-5 py-2 bg-[#50bdfe] border border-black rounded-lg">Add Product</button>
+          <button className="px-5 py-2 bg-pink-500  text-white border  rounded-lg">Add Product</button>
         </Link>
       </div>
       {/* table  */}

@@ -4,7 +4,7 @@ import { Trash } from "lucide-react";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { auth, fireDB } from "../firebase/FirebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
-import { loggedHandler } from "../store/isWork";
+import { cartLengthHandler, loggedHandler } from "../store/isWork";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ const CartPage = () => {
   const [cart, setCart] = useState([]);
   const [currentUser, setcurrentUser] = useState();
   const [currentUserEmail,setCurrentUserEmail]=useState()
+  const dispatch=useDispatch()
   const navigate=useNavigate()
 
 
@@ -23,6 +24,8 @@ const CartPage = () => {
     const snapShot = await getDocs(collection(fireDB, "user", currentUser, "productCart"));
     const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     setCart(res);
+    dispatch(cartLengthHandler(res.length))  
+
   };
 
  
@@ -68,6 +71,9 @@ const CartPage = () => {
       toast.success("Cart Deleted",{
         toastId:1
       });
+      const snapShot =await getDocs(collection(fireDB, "user", currentUser, "productCart"));
+      const length = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      dispatch(cartLengthHandler(length.length))  
     } catch (error) {
       console.error("Error deleting product: ", error);
     }
@@ -117,6 +123,7 @@ const CartPage = () => {
 
         })
         toast.success("Buy SuccessFully");
+        CartListHandler()
       } else {
         toast.error("error", {
           toastId: 1,
@@ -134,12 +141,7 @@ const CartPage = () => {
     }
 
 
-    try {
-        await deleteDoc(doc(fireDB, "user",));
-        CartListHandler();
-      } catch (error) {
-        console.error( error);
-      }
+     
   };
 
 
@@ -152,6 +154,7 @@ const CartPage = () => {
       console.error("Error deleting product: ", error);
     }
   };
+
 
    const CheckOutHandler=async()=>{
 
@@ -202,7 +205,7 @@ const CartPage = () => {
           });
         });
         toast.success("Buy SuccessFully")
-       
+        CartListHandler() 
         
       } catch (error) {
         console.error("Error adding documents to Firestore:", error);

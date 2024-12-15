@@ -13,6 +13,8 @@ import { ProtectedRouteAdmin } from "./ProtectedRoute/ProtectedRouteAdmin";
 import EditeProduct from "./screens/admin/EditeProduct";
 import Category from "./screens/Category";
 import AllProducts from "./components/AllProducts";
+import ProductInformation from "./screens/admin/ProductInformation";
+import UserOrderDetails from "./screens/admin/UserOrderDetails";
 // import ProtectedRouteUser from "./ProtectedRoute/ProtectedRouteUser";
 
 
@@ -24,6 +26,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="allProducts" element={<AllProducts />} />
         <Route path="/productInfo/:id" element={<ProductInfo />} />
+        <Route path="/productInformation/:id" element={<ProductInformation />} />
         <Route path="/cartPage" element={<CartPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -34,6 +37,7 @@ function App() {
         <Route path="/addProduct" element={<AddProducts />} />
         <Route path="/editeProduct/:id" element={<EditeProduct />} />
         <Route path="/category/:categoryName" element={<Category />} />
+        <Route path="/UserOrderDetails/:id" element={<UserOrderDetails />} />
 
         
       </Routes>

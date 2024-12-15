@@ -22,17 +22,17 @@ const HeroSection = () => {
       <img
         src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/96394e0900c8983c.jpg?q=20"
         alt="image 1"
-        className="h-[50vh] w-full object-cover"
+        className="h-full w-full object-contain"
       />
       <img
         src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/07c59f7cf6a426bc.jpg?q=20"
         alt="image 2"
-        className="h-[50vh] w-full object-cover"
+        className="h-full w-full object-contain"
       />
       <img
         src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/8074e7b2f6d2bfea.jpg?q=20"
         alt="image 3"
-        className="h-[50vh] w-full object-cover"
+        className="h-full w-full object-contain"
       />
     </Carousel>
  </>

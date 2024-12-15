@@ -1,88 +1,57 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout";
 import { useNavigate, useParams } from "react-router-dom";
 import { addDoc, collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
-import { auth, fireDB } from "../firebase/FirebaseConfig";
-import { cartLengthHandler, loaderHandler } from "../store/isWork";
+import { loaderHandler } from "../../store/isWork";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import { toast } from "react-toastify";
 import { onAuthStateChanged } from "firebase/auth";
+import { auth, fireDB } from "../../firebase/FirebaseConfig";
+import Loader from "../../components/Loader";
 
-const ProductInfo = () => {
-  const [currentUser, setcurrentUser] = useState();
+const ProductInformation = () => {
+    const [currentUser, setcurrentUser] = useState();
 
-  const isLoad = useSelector((state) => state.loaderState.isLoading);
-  const dispatch = useDispatch();
-  const { id } = useParams();
-
-  const navigate = useNavigate();
-
-  const [product, setProduct] = useState({});
-  console.log(product);
-
-  const fetchCartProductInfo = async () => {
-    dispatch(loaderHandler(true));
-    const docRef = await getDoc(doc(fireDB, "user", currentUser, "productCart", id));
-    setProduct({ uid: docRef.id, ...docRef.data() });
-    dispatch(loaderHandler(false));
-  };
-
-  useEffect(() => {
-    fetchProductInfo();
-    fetchCartProductInfo();
-  }, [id]);
-
-  const fetchProductInfo = async () => {
-    dispatch(loaderHandler(true));
-    const docRef = await getDoc(doc(fireDB, "products", id));
-    setProduct({ uid: docRef.id, ...docRef.data() });
-    dispatch(loaderHandler(false));
-  };
-
-  useEffect(() => {
-    fetchProductInfo();
-  }, [id]);
-
-  const AddCartHandler = async () => {
-    if (currentUser == undefined) {
-      return navigate("/login");
-    }
-
-    const cartRef = collection(fireDB, "user", currentUser, "productCart");
-    const res = await getDocs(query(cartRef, where("uid", "==", id)));
-
-    if (res.empty) {
-      addDoc(collection(fireDB, "user", currentUser, "productCart"), {
-        uid: product.uid,
-        description: product.description,
-        price: product.price,
-        currentPrice: product.currentPrice,
-        productImageUrl: product.productImageUrl,
-        quantity: product.quantity,
-        title: product.title,
-        category: product.category,
+    const isLoad = useSelector((state) => state.loaderState.isLoading);
+    const dispatch = useDispatch();
+    const { id } = useParams();
+  
+    const navigate = useNavigate();
+  
+    const [product, setProduct] = useState({});
+    console.log(product);
+  
+    const fetchCartProductInfo = async () => {
+      dispatch(loaderHandler(true));
+      const docRef = await getDoc(doc(fireDB, "user", currentUser, "productCart", id));
+      setProduct({ uid: docRef.id, ...docRef.data() });
+      dispatch(loaderHandler(false));
+    };
+  
+    useEffect(() => {
+      fetchProductInfo();
+      fetchCartProductInfo();
+    }, [id]);
+  
+    const fetchProductInfo = async () => {
+      dispatch(loaderHandler(true));
+      const docRef = await getDoc(doc(fireDB, "products", id));
+      setProduct({ uid: docRef.id, ...docRef.data() });
+      dispatch(loaderHandler(false));
+    };
+  
+    useEffect(() => {
+      fetchProductInfo();
+    }, [id]);
+  
+  
+    useEffect(() => {
+      onAuthStateChanged(auth, (user) => {
+        setcurrentUser(user.uid);
       });
-      toast.success("Cart Added");
-       const snapShot =await getDocs(collection(fireDB, "user", currentUser, "productCart"));
-              const length = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-              dispatch(cartLengthHandler(length.length))  
-              
-    } else {
-      toast.error("Product Alredy In The Cart", {
-        toastId: 1,
-      });
-    }
-  };
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setcurrentUser(user.uid);
-    });
-  }, [auth]);
-
+    }, [auth]);
+  
   return (
-    <Layout>
+    <div>
+        
       {isLoad ? (
         <Loader />
       ) : (
@@ -147,14 +116,7 @@ const ProductInfo = () => {
                   </div>
                   <div className="mb-6 " />
                   <div className="flex flex-wrap items-center mb-6">
-                    <button
-                      type="button"
-                      onClick={AddCartHandler}
-                      className="w-full px-4 py-3 text-center text-pink-600 bg-pink-100 border border-pink-600  hover:bg-pink-600 hover:text-gray-100 rounded-xl"
-                    >
-                      {" "}
-                      ADD CART
-                    </button>
+                    
                   </div>
                 </div>
               </div>
@@ -162,8 +124,10 @@ const ProductInfo = () => {
           </div>
         </section>
       )}
-    </Layout>
-  );
-};
+    
+      
+    </div>
+  )
+}
 
-export default ProductInfo;
+export default ProductInformation
