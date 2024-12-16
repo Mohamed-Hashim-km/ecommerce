@@ -16,10 +16,12 @@ const UserOrderDetails = () => {
 
     const [user, setUser] = useState([]);
     const [buyList, setBuyList] = useState([]);
+    const [address,UserAdress]=useState([])
     console.log(buyList);
     const {id}=useParams()
     console.log(id);
     
+  console.log(address);
   
     
     const isLoader = useSelector((state) => state.loaderState.isLoading);
@@ -35,10 +37,19 @@ const UserOrderDetails = () => {
       
       setBuyList(res);
       dispatch(loaderHandler(false))
+      userAddress()
 
      
     };
   
+
+    
+  const userAddress=async()=>{
+    const snapShot = await getDocs(collection(fireDB, "user", id, "Adress"));
+    const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    UserAdress(res)
+
+  }
   
   
     
@@ -51,7 +62,56 @@ const UserOrderDetails = () => {
     <>
     {isLoader?<Loader/>:
 <>
-    {buyList.length>0?<div className=" container mx-auto px-4 py-5 lg:py-8">
+    {buyList.length>0? <>
+    {address.map((item,index)=>{
+      return(<div className="container mx-auto flex justify-center  top-0 sticky z-[999]">
+        <div className="bg-white flex py-6 shadow-lg shadow-black   rounded ">
+        <div className="px-6 ">
+                <h2 className="title-font font-extrabold text-lg  text-gray-900 tracking-widest ">NAME</h2>
+                <p className="mt-1">{item.name}</p>
+            </div>
+            <div className="px-6 ">
+                <h2 className="title-font font-extrabold text-lg  text-gray-900 tracking-widest ">ADDRESS</h2>
+                <p className="mt-1">{item.address}</p>
+            </div>
+            <div className="px-6 ">
+                <h2 className="title-font font-semibold  text-gray-900 tracking-widest text-lg">COUNTRY</h2>
+                <p className="mt-1 font-normal">{item.country}</p>
+            </div>
+            <div className="px-6 ">
+                <h2 className="title-font font-semibold  text-gray-900 tracking-widest text-lg">STATE</h2>
+                <p className="mt-1 font-normal">{item.state}</p>
+            </div>
+            <div className="px-6 ">
+                <h2 className="title-font font-semibold  text-gray-900 tracking-widest text-lg">CITY</h2>
+                <p className="mt-1 font-normal">{item.city}</p>
+            </div>
+           
+           
+            <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
+               
+                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-lg">PHONE</h2>
+                <p className="leading-relaxed">123-456-7890</p>
+                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-lg">ZIP CODE</h2>
+                <a className="text-red-500 leading-relaxed">{item.zipCode}</a>
+            </div>
+        </div>
+    </div>)
+    })}
+
+
+
+
+    
+
+
+
+
+                
+    <div className=" container mx-auto px-4 pb-5 lg:py-8">
+
+
+      
        
         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
           <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -116,7 +176,7 @@ const UserOrderDetails = () => {
             </div>
           </div>
         </section>
-      </div>: <h1 className="text-center font-extrabold text-lg">No Orders</h1>}</>}
+      </div></>: <h1 className="text-center font-extrabold text-lg">No Orders</h1>}</>}
       </>
   )
 }

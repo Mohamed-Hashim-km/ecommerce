@@ -15,6 +15,8 @@ import Category from "./screens/Category";
 import AllProducts from "./components/AllProducts";
 import ProductInformation from "./screens/admin/ProductInformation";
 import UserOrderDetails from "./screens/admin/UserOrderDetails";
+import UserAdress from "./screens/user/UserAdress";
+import PaymentPage from "./screens/user/PaymentPage";
 // import ProtectedRouteUser from "./ProtectedRoute/ProtectedRouteUser";
 
 
@@ -38,6 +40,9 @@ function App() {
         <Route path="/editeProduct/:id" element={<EditeProduct />} />
         <Route path="/category/:categoryName" element={<Category />} />
         <Route path="/UserOrderDetails/:id" element={<UserOrderDetails />} />
+        <Route path="/UserAdress" element={<UserAdress />} />
+        <Route path="/PaymentPage" element={<PaymentPage />} />
+
 
         
       </Routes>

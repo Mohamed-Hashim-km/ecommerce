@@ -73,8 +73,8 @@ const OrderDetail = () => {
        
 
        
-        <div className="w-full overflow-x-auto">
-          <table className="w-full text-left border border-collapse sm:border-separate border-black text-black">
+        <div className="w-full overflow-x-auto shadow-sm shadow-black ">
+          <table className="w-full text-left border border-collapse sm:border-separate border-black text-black ">
             <tbody>
               <tr>
                 <th scope="col" className="h-12 px-6 text-md border-l first:border-l-0 border-black text-slate-700 bg-slate-100 font-bold fontPara">

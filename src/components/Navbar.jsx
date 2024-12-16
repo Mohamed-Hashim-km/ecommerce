@@ -53,9 +53,10 @@ const Navbar = () => {
     auth
       .signOut()
       .then(() => {
+        navigate("/");
         toast.success("Logout");
         dispatch(loggedHandler(false));
-        navigate("/");
+       
       })
       .catch(() => {
         toast.error("Error");

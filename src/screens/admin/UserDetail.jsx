@@ -35,7 +35,7 @@ const UserDetail = () => {
         <div className="py-5 flex justify-between items-center">
           <h1 className=" text-xl text-black font-bold">All User</h1>
         </div>
-        <div className="w-full overflow-x-auto">
+        <div className="w-full overflow-x-auto shadow-sm shadow-black">
           <table className="w-full text-left border border-collapse sm:border-separate border-black text-black">
             <tbody>
               <tr>

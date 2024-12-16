@@ -9,34 +9,34 @@ import { toast } from "react-toastify";
 import { loaderHandler } from "../../store/isWork";
 import Loader from "../../components/Loader";
 
-const products = [
-  {
-    id: 1,
-    name: "Nike Air Force 1 07 LV8",
-    imageSrc: "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/54a510de-a406-41b2-8d62-7f8c587c9a7e/air-force-1-07-lv8-shoes-9KwrSk.png",
-    href: "#",
-    price: "₹61,999",
-    color: "Orange",
-    imageAlt: "Nike Air Force 1 07 LV8",
-    quantity: 1,
-  },
-];
+
 
 const UserDashBoard = () => {
   const [user, setUser] = useState([]);
   const [buyList, setBuyList] = useState([]);
   const [currentUser, setcurrentUser] = useState();
   console.log(buyList);
+  
+
+
+
+  
+  
+  
+
+
+let singleObject={};
 
   
   const isLoader = useSelector((state) => state.loaderState.isLoading);
   const dispatch = useDispatch();
 
   const UserBuyList = async () => {
-   
+    
     const snapShot = await getDocs(collection(fireDB, "user", currentUser, "buyedItems"));
     const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     setBuyList(res);
+    
    
   };
 
@@ -64,6 +64,16 @@ const UserDashBoard = () => {
     UserBuyList();
   }, [currentUser]);
 
+
+ 
+  
+
+
+ 
+  
+
+
+
   // const RemoveOrderHandler=async(id)=>{
 
   //    try {
@@ -82,7 +92,7 @@ const UserDashBoard = () => {
     <Layout>
      {isLoader?<div className="bg-gray-900  justify-center flex min-h-screen items-center ">  <Loader /></div>: <div className=" container mx-auto px-4 py-5 lg:py-8">
         <div className="top ">
-          <div className=" bg-[#b7d1aa] py-5 rounded-xl border border-pink-100">
+          <div className=" bg-white py-5 shadow-lg shadow-black  border ">
             <div className="flex justify-center">
               <img src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="" />
             </div>
@@ -98,7 +108,7 @@ const UserDashBoard = () => {
             </div>
           </div>
         </div>
-        <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+        <section className="bg-white py-8 antialiased shadow-lg dark:bg-gray-900 ">
           <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
             <div className="mx-auto max-w-5xl">
               <div className="mt-6 flow-root sm:mt-8">
@@ -134,9 +144,15 @@ const UserDashBoard = () => {
                           <dd className="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">₹{item.currentPrice}</dd>
                         </dl>
 
+                     
+                        
+                         
+                        
+                   
+
                         <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                           <dt className="text-base font-medium text-gray-500 dark:text-gray-400">Status:</dt>
-                          <dd className="me-2 mt-1.5 inline-flex items-center text-green-600 rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
+                          <dd className="me-2 mt-1.5 inline-flex items-center font-bold text-green-600 rounded bg-primary-100 px-2.5 py-0.5 text-xs  text-primary-800 dark:bg-primary-900 dark:text-primary-300">
                             <svg className="me-1 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                               <path
                                 stroke="currentColor"
@@ -149,6 +165,7 @@ const UserDashBoard = () => {
                             {item.status}
                           </dd>
                         </dl>
+                        
 
                         {/* <div className="w-full grid sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4">
               <button onClick={()=>{RemoveOrderHandler(item.id)}} type="button" className="w-full rounded-lg border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto">Cancel order</button>

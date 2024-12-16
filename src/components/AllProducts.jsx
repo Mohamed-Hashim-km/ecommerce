@@ -87,7 +87,7 @@ const AllProducts = () => {
     
   return (
     <Layout>
-       {isLoad ? (
+      {isLoad ? (
   <div className="bg-white justify-center flex min-h-screen items-center">
     <Loader />
   </div>
@@ -154,20 +154,19 @@ const AllProducts = () => {
           {FilterProducts.map((item, index) => {
             return (
               <div key={index} className="p-4 w-full md:w-1/4 sm:w-1/2 lg:w-1/4">
-                <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer px-2">
+                <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer flex flex-col">
                   <img
                     onClick={() => navigate(`/productInfo/${item.uid}`)}
-                    className="lg:h-80 h-full object-contain w-full py-5"
+                    className="lg:h-80 h-48 object-contain w-full py-5"
                     src={item.productImageUrl}
-                    alt="blog"
+                    alt="product"
                   />
-                  <div className="p-6">
-                    <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"></h2>
-                    <h1 className="title-font text-lg font-medium text-gray-900 mb-3">{item.title}</h1>
+                  <div className="p-6 flex flex-col flex-grow">
+                    <h1 className="title-font text-lg font-medium text-gray-900 mb-2">{item.title}</h1>
                     <h1 className="text-xs font-medium text-gray-500 line-through">{item.price}</h1>
                     <h1 className="title-font text-lg font-medium text-gray-900 mb-3">₹{item.currentPrice}</h1>
 
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-auto">
                       <button
                         onClick={() => AddCartHandler(item)}
                         className="bg-pink-500 hover:bg-pink-600 w-full text-white py-2 rounded-lg font-bold"

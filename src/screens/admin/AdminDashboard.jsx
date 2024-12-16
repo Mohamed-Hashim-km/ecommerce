@@ -77,8 +77,8 @@ const AdminDashboard = () => {
     auth
       .signOut()
       .then(() => {
-        toast.success("Admin Logout Succussfully");
         dispatch(loggedHandler(false));
+        toast.success("Admin Logout Succussfully");
         navigate("/");
       })
       .catch((error) => {
@@ -98,27 +98,27 @@ const AdminDashboard = () => {
  
   return (
     <div>
-      <button onClick={LoggoutHandler} className="px-5 ml-3 py-2 bg-pink-500 text-white  border  rounded-lg">
+      <button onClick={LoggoutHandler} className="px-5 ml-3 py-2 bg-pink-500 text-black  border  rounded-lg">
         Logout
       </button>
      
       <div className="top mb-5 px-5 mt-5">
-        <div className=" bg-[#7882a6] py-5 border shadow-md shadow-blue-gray-500 rounded-lg">
-          <h1 className=" text-center text-2xl font-bold text-white">Admin Dashboard</h1>
+        <div className=" bg-white py-5 border shadow-md shadow-blue-gray-500 rounded-lg">
+          <h1 className=" text-center text-2xl font-bold text-black">Admin Dashboard</h1>
         </div>
       </div>
       <div className="px-5">
         <div className="mid mb-5">
-          <div className=" bg-[#7882a6] py-5 rounded-xl border shadow-md shadow-blue-gray-500">
+          <div className=" bg-white py-5 rounded-xl border shadow-md shadow-blue-gray-500">
             <div className="flex justify-center">
               <img src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="" />
             </div>
             <div className="">
-              <h1 className=" text-center text-lg text-white">
+              <h1 className=" text-center text-lg text-black">
                 <span className=" font-bold">Name :</span>
                 {admin.name}{" "}
               </h1>
-              <h1 className=" text-center text-lg text-white">
+              <h1 className=" text-center text-lg text-black">
                 <span className=" font-bold">Email :</span> {admin.email}
               </h1>
             </div>
@@ -126,10 +126,10 @@ const AdminDashboard = () => {
         </div>
         <div className="">
           <Tabs>
-            <TabList className="flex flex-wrap -m-4 text-center justify-center">
+            <TabList className="flex flex-wrap -m-4 text-center justify-center ">
               <Tab className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer">
-                <div className=" border bg-[#7882a6] hover:bg-[#7882a6] shadow-md shadow-blue-gray-500 px-4 py-3 rounded-xl">
-                  <div className="text-white w-12 h-12 mb-3 inline-block">
+                <div className=" border bg-white hover:bg-white shadow-md shadow-blue-gray-500 px-4 py-3 rounded-xl">
+                  <div className="text-black w-12 h-12 mb-3 inline-block">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={50}
@@ -151,13 +151,13 @@ const AdminDashboard = () => {
                       <path d="m15 11-1 9" />
                     </svg>
                   </div>
-                  <h2 className="title-font font-medium text-3xl text-white fonts1">{product.length}</h2>
-                  <p className=" text-white  font-bold">Total Products</p>
+                  <h2 className="title-font font-medium text-3xl text-black fonts1">{product.length}</h2>
+                  <p className=" text-black  font-bold">Total Products</p>
                 </div>
               </Tab>
               <Tab className="p-4 md:w-1/4 sm:w-1/2 w-full cursor-pointer">
-                <div className=" border bg-[#7882a6] hover:bg-[#7882a6] shadow-md shadow-blue-gray-500 px-4 py-3 rounded-xl">
-                  <div className="text-white w-12 h-12 mb-3 inline-block">
+                <div className=" border bg-white hover:bg-white shadow-md shadow-blue-gray-500 px-4 py-3 rounded-xl">
+                  <div className="text-black w-12 h-12 mb-3 inline-block">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={50}
@@ -178,13 +178,13 @@ const AdminDashboard = () => {
                       <path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1" />
                     </svg>
                   </div>
-                  <h2 className="title-font font-medium text-3xl text-white fonts1">{orderDetailes.length}</h2>
-                  <p className=" text-white  font-bold">Total Order</p>
+                  <h2 className="title-font font-medium text-3xl text-black fonts1">{orderDetailes.length}</h2>
+                  <p className=" text-black  font-bold">Total Order</p>
                 </div>
               </Tab>
               <Tab className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer">
-                <div className=" border bg-[#7882a6] hover:bg-[#7882a6] shadow-md shadow-blue-gray-500 px-4 py-3 rounded-xl">
-                  <div className="text-white w-12 h-12 mb-3 inline-block">
+                <div className=" border bg-white hover:bg-white shadow-md shadow-blue-gray-500 px-4 py-3 rounded-xl">
+                  <div className="text-black w-12 h-12 mb-3 inline-block">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width={50}
@@ -203,8 +203,8 @@ const AdminDashboard = () => {
                       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
                   </div>
-                  <h2 className="title-font font-medium text-3xl text-white fonts1">{user.length}</h2>
-                  <p className=" text-white  font-bold">Total users</p>
+                  <h2 className="title-font font-medium text-3xl text-black fonts1">{user.length}</h2>
+                  <p className=" text-black  font-bold">Total users</p>
                 </div>
               </Tab>
             </TabList>

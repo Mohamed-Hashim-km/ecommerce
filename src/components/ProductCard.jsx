@@ -94,8 +94,9 @@ const ProductCard = () => {
     dispatch(loaderHandler(true));
     const snapshot = await getDocs(collection(fireDB, "products"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
-    setProduct(data.slice(0,8));
     dispatch(loaderHandler(false));
+    setProduct(data.slice(0,8));
+   
   };
 
 
@@ -173,7 +174,7 @@ const ProductCard = () => {
                 />
                 <div className="p-6">
                   <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"></h2>
-                  <h1 className="title-font text-lg font-medium text-gray-900 mb-3">{item.title}</h1>
+                  <h1 className="title-font text-lg font-medium text-gray-900 mb-3 truncate">{item.title}</h1>
                   <h1 className="text-xs font-medium text-gray-500 line-through">{item.price}</h1>
                   <h1 className="title-font text-lg font-medium text-gray-900 mb-3">₹{item.currentPrice}</h1>
 
