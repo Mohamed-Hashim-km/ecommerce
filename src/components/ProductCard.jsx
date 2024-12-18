@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { loaderHandler } from "../store/isWork";
 import { cartLengthHandler } from "../store/isWork";
 
-
 // const productData = [
 //     {
 //         id: 1,
@@ -95,10 +94,8 @@ const ProductCard = () => {
     const snapshot = await getDocs(collection(fireDB, "products"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
     dispatch(loaderHandler(false));
-    setProduct(data.slice(0,8));
-   
+    setProduct(data.slice(0, 8));
   };
-
 
   useEffect(() => {
     addAllProducts();
@@ -108,14 +105,11 @@ const ProductCard = () => {
 
   const [currentUser, setcurrentUser] = useState();
 
-  console.log(currentUser);
 
   const AddCartHandler = async (product) => {
     if (currentUser == undefined) {
       return navigate("/login");
     }
-    
-        
 
     const cartRef = collection(fireDB, "user", currentUser, "productCart");
     const res = await getDocs(query(cartRef, where("uid", "==", product.uid)));
@@ -133,12 +127,9 @@ const ProductCard = () => {
       });
       toast.success("Cart Added");
 
-
-      const snapShot =await getDocs(collection(fireDB, "user", currentUser, "productCart"));
-        const length = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-        dispatch(cartLengthHandler(length.length))  
-        
-    
+      const snapShot = await getDocs(collection(fireDB, "user", currentUser, "productCart"));
+      const length = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      dispatch(cartLengthHandler(length.length));
     } else {
       toast.error("product alredy in the cart", {
         toastId: 1,
@@ -154,47 +145,38 @@ const ProductCard = () => {
 
   return (
     <>
-    
-    <div className="mt-10">
-  <div className="">
-    <h1 className="text-center mb-5 text-2xl font-semibold">Bestselling Products</h1>
-  </div>
-  <section className="text-gray-600 body-font">
-    <div className="container px-5 py-5 mx-auto">
-      <div className="flex flex-wrap -m-4">
-        {product.map((item, index) => {
-          return (
-            <div key={index} className="p-4 w-full md:w-1/4 sm:w-1/2 lg:w-1/4">
-              <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer px-2">
-                <img
-                  onClick={() => navigate(`/productInfo/${item.uid}`)}
-                  className="lg:h-80 h-64 object-contain w-full py-5"
-                  src={item.productImageUrl}
-                  alt="product"
-                />
-                <div className="p-6">
-                  <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"></h2>
-                  <h1 className="title-font text-lg font-medium text-gray-900 mb-3 truncate">{item.title}</h1>
-                  <h1 className="text-xs font-medium text-gray-500 line-through">{item.price}</h1>
-                  <h1 className="title-font text-lg font-medium text-gray-900 mb-3">₹{item.currentPrice}</h1>
+      <div className="mt-10" data-aos="zoom-in-up">
+        <div className="">
+          <h1 className="text-center mb-5 text-2xl font-semibold uppercase">Bestselling Products</h1>
+        </div>
+        <section className="text-gray-600 body-font">
+          <div className="container px-5 py-5 mx-auto">
+            <div className="flex flex-wrap -m-4">
+              {product.map((item, index) => {
+                return (
+                  <div key={index} className="p-4 w-full md:w-1/4 sm:w-1/2 lg:w-1/4">
+                    <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer px-2">
+                      <img onClick={() => navigate(`/productInfo/${item.uid}`)} className="lg:h-80 h-64 object-contain w-full py-5" src={item.productImageUrl} alt="product" />
+                      <div className="p-6">
+                        <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"></h2>
+                        <h1 className="title-font text-lg font-medium text-gray-900 mb-3 truncate">{item.title}</h1>
+                        <h1 className="text-xs font-medium text-gray-500 line-through">{item.price}</h1>
+                        <h1 className="title-font text-lg font-medium text-gray-900 mb-3">₹{item.currentPrice}</h1>
 
-                  <div className="flex justify-center">
-                    <button
-                      onClick={() => AddCartHandler(item)}
-                      className="bg-pink-500 hover:bg-pink-600 w-full text-white py-2 rounded-lg font-bold"
-                    >
-                      ADD CART
-                    </button>
+                        <div className="flex justify-center">
+                          <button onClick={() => AddCartHandler(item)} className="bg-pink-500 hover:bg-pink-600 w-full text-white py-2 rounded-lg font-bold">
+                            ADD CART
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
-          );
-        })}
+          </div>
+        </section>
       </div>
-    </div>
-  </section>
-</div>
     </>
   );
 };

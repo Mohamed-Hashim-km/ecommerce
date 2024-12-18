@@ -14,6 +14,10 @@ const HomePage = () => {
   // console.log(isLoader);
 
 
+  
+  
+
+
   return (
     <>
     {/* { isLoader?

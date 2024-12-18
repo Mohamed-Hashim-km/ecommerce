@@ -2,65 +2,26 @@ import React from "react";
 
 const TestiMonial = () => {
   return (
-    <div>
-      <section className="text-gray-600 body-font mb-10">
-        <div className="container px-5 py-10 mx-auto">
-          <h1 className=" text-center text-3xl font-bold text-black">Testimonial</h1>
-          <h2 className=" text-center text-2xl font-semibold mb-10">
-            What our <span className=" text-pink-500">customers</span> are saying
-          </h2>
-          <div className="flex flex-wrap -m-4">
-            <div className="lg:w-1/3 lg:mb-0 mb-6 p-4">
-              <div className="h-full text-center">
-                <img
-                  alt="testimonial"
-                  className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
-                  src="https://www.devknus.com/img/gawri.png"
-                />
-                <p className="leading-relaxed">
-                  Edison bulb retro cloud bread echo park, helvetica stumptown taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin coffee ennui shaman taiyaki vape DIY tote bag drinking vinegar
-                  cronut adaptogen squid fanny pack vaporware.
-                </p>
-                <span className="inline-block h-1 w-10 rounded bg-pink-500 mt-6 mb-4" />
-                <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Shreya</h2>
-                <p className="text-gray-500">Senior Product Designer</p>
+    <div data-aos="zoom-in-up">
+      <section class="bg-white dark:bg-gray-900">
+  <div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16 lg:px-6">
+      <figure class="max-w-screen-md mx-auto">
+          <svg class="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"/>
+          </svg> 
+          <blockquote>
+              <p class="text-2xl font-medium text-gray-900 dark:text-white">"Flowbite is just awesome. It contains tons of predesigned components and pages starting from login screen to complex dashboard. Perfect choice for your next SaaS application."</p>
+          </blockquote>
+          <figcaption class="flex items-center justify-center mt-6 space-x-3">
+              <img class="w-6 h-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="profile picture"/>
+              <div class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
+                  <div class="pr-3 font-medium text-gray-900 dark:text-white">Micheal Gough</div>
+                  <div class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">CEO at Google</div>
               </div>
-            </div>
-            <div className="lg:w-1/3 lg:mb-0 mb-6 p-4">
-              <div className="h-full text-center">
-                <img
-                  alt="testimonial"
-                  className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
-                  src="https://www.devknus.com/img/gawri.png"
-                />
-                <p className="leading-relaxed">
-                  Edison bulb retro cloud bread echo park, helvetica stumptown taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin coffee ennui shaman taiyaki vape DIY tote bag drinking vinegar
-                  cronut adaptogen squid fanny pack vaporware.
-                </p>
-                <span className="inline-block h-1 w-10 rounded bg-pink-500 mt-6 mb-4" />
-                <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Mishra</h2>
-                <p className="text-gray-500">UI Develeoper</p>
-              </div>
-            </div>
-            <div className="lg:w-1/3 lg:mb-0 p-4">
-              <div className="h-full text-center">
-                <img
-                  alt="testimonial"
-                  className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
-                  src="https://www.devknus.com/img/gawri.png"
-                />
-                <p className="leading-relaxed">
-                  Edison bulb retro cloud bread echo park, helvetica stumptown taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin coffee ennui shaman taiyaki vape DIY tote bag drinking vinegar
-                  cronut adaptogen squid fanny pack vaporware.
-                </p>
-                <span className="inline-block h-1 w-10 rounded bg-pink-500 mt-6 mb-4" />
-                <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Neha </h2>
-                <p className="text-gray-500">CTO</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+          </figcaption>
+      </figure>
+  </div>
+</section>
     </div>
   );
 };

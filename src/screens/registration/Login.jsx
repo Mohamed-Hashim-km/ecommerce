@@ -42,7 +42,7 @@ const Login = () => {
         dispatch(loaderHandler(false));
         
       } else {
-        navigate("/user-dashboard");
+        navigate("/");
         dispatch(loaderHandler(false));
         dispatch(loggedHandler(true));
         toast.success("Loged Succussfully")

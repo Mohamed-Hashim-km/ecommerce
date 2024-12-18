@@ -8,6 +8,9 @@ import { loaderHandler } from "../../store/isWork";
 import Loader from "../../components/Loader";
 const categoryList = [
   {
+    name: "Select",
+  },
+  {
     name: "fashion",
   },
   {
@@ -61,22 +64,26 @@ const AddProducts = () => {
     }
 
     dispatch(loaderHandler(true));
+    navigate("/admin-dashboard");
     try {
       const productRef = collection(fireDB, "products");
       await addDoc(productRef, product);
       toast.success("Add product successfully", {
         toastId: 1,
       });
-      navigate("/admin-dashboard");
+   
 
-      dispatch(loaderHandler(false));
+      
     } catch (error) {
       console.log(error);
+      dispatch(loaderHandler(false));
       toast.error("Add product failed", {
         toastId: 1,
       });
-      false;
+      
     }
+
+    dispatch(loaderHandler(false));
   };
 
   return (

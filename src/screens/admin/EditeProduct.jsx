@@ -85,6 +85,7 @@ const EditeProduct = () => {
     setDoc(doc(fireDB, "products", id), product);
 
     navigate("/admin-dashboard");
+    toast.success("Product Edit SuccessFully")
   };
 
   return (

@@ -16,11 +16,24 @@ import AllProducts from "./components/AllProducts";
 import ProductInformation from "./screens/admin/ProductInformation";
 import UserOrderDetails from "./screens/admin/UserOrderDetails";
 import UserAdress from "./screens/user/UserAdress";
-import PaymentPage from "./screens/user/PaymentPage";
-// import ProtectedRouteUser from "./ProtectedRoute/ProtectedRouteUser";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 
 function App() {
+
+
+  useEffect(() => {
+    AOS.init({
+      offset: 100,
+      duration: 800,
+      easing: "ease-in-sine",
+      delay: 100,
+    });
+    AOS.refresh();
+  }, []);
+
   return (
     <>
       <ScrollTop />
@@ -41,7 +54,6 @@ function App() {
         <Route path="/category/:categoryName" element={<Category />} />
         <Route path="/UserOrderDetails/:id" element={<UserOrderDetails />} />
         <Route path="/UserAdress" element={<UserAdress />} />
-        <Route path="/PaymentPage" element={<PaymentPage />} />
 
 
         

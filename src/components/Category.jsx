@@ -38,7 +38,7 @@ const category = [
 const Category = () => {
   const navigate = useNavigate();
   return (
-    <div>
+    <div data-aos="zoom-in-up">
       <div className="flex flex-col mt-5">
         <div className="flex overflow-x-scroll lg:justify-center  hide-scroll-bar">
           <div className="flex ">

@@ -94,7 +94,7 @@ const Category = () => {
                           <img onClick={() => navigate(`/productInfo/${item.uid}`)} className="lg:h-80  h-full object-contain w-full py-5 " src={item.productImageUrl} alt="blog" />
                           <div className="p-6">
                             <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"></h2>
-                            <h1 className="title-font text-lg font-medium text-gray-900 mb-3">{item.title}</h1>
+                            <h1 className="title-font text-lg font-medium text-gray-900 mb-3 truncate">{item.title}</h1>
                             <h1 className="text-xs font-medium text-gray-500 line-through"> {item.price}</h1>
                             <h1 className="title-font text-lg font-medium text-gray-900 mb-3">₹{item.currentPrice}</h1>
 

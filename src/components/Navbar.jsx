@@ -14,54 +14,47 @@ const Navbar = () => {
 
   const cartLength = useSelector((state) => state.loaderState.cartLength);
 
-
- 
-
   const [currentUser, setCurrentUser] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-    onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user.uid);
-    });
- 
-    if (currentUser) {
-      dispatch(loggedHandler(true));
-    } else {
+  onAuthStateChanged(auth, (user) => {
+    setCurrentUser(user.uid);
+  });
+
+  if (currentUser) {
+    dispatch(loggedHandler(true));
+  } else {
+    dispatch(loggedHandler(false));
+  }
+
+  const LoggoutHandler =async () => {
+    try {
+      await auth.signOut(); 
       dispatch(loggedHandler(false));
+      navigate("/"); 
+      toast.success("Logout", {
+        toastId: 1
+      });
+    } catch (error) {
+      toast.error("Logout failed: " + error.message); 
     }
+  };
+
 
   const carts = async () => {
     const snapShot = await getDocs(collection(fireDB, "user", currentUser, "productCart"));
     const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    console.log(res);
 
     dispatch(cartLengthHandler(res.length));
   };
-
-
 
   useEffect(() => {
     carts();
   }, [currentUser]);
 
-
-
-
-  const LoggoutHandler = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigate("/");
-        toast.success("Logout");
-        dispatch(loggedHandler(false));
-       
-      })
-      .catch(() => {
-        toast.error("Error");
-      });
-  };
+ 
 
   return (
     <>
@@ -77,15 +70,15 @@ const Navbar = () => {
               <li>
                 <Link to={"/"}>Home</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to={"/allProducts"}>All Products</Link>
-              </li>
+              </li> */}
 
-              {!isLog && (
+              {/* {!isLog && (
                 <li>
                   <Link to={"/signup"}>Signup</Link>
                 </li>
-              )}
+              )} */}
               {!isLog && (
                 <li>
                   <Link to={"/login"}>Login</Link>
@@ -99,13 +92,28 @@ const Navbar = () => {
 
               {isLog && (
                 <li className="flex">
-                  <Link to={"/cartPage"}>Cart({cartLength})</Link>
+                  <Link to={"/cartPage"}>
+                    <div className=" flex ">
+                      <div className="relative ">
+                        <div className="t-0 absolute left-3">
+                          <p className="flex  h-1 w-1 items-center justify-center rounded-full bg-red-500 p-2 text-xs text-white">{cartLength}</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="file: mt-1 h-6 w-6">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </Link>
                 </li>
               )}
 
               {isLog && (
-                <li className=" cursor-pointer" onClick={LoggoutHandler}>
-                  Logout
+                <li  className=" cursor-pointer" onClick={LoggoutHandler}>
+                <button>Logout</button>  
                 </li>
               )}
             </ul>

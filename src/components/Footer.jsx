@@ -1,35 +1,61 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaInstagram } from "react-icons/fa6";
+import { FaLinkedinIn } from "react-icons/fa6";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <div>
-      <footer className="bg-gray-800 text-white py-4 px-3 mt-16">
-        <div className="container mx-auto flex flex-wrap items-center justify-between">
-          <div className="w-full md:w-1/2 md:text-center md:mb-0 mb-8">
-            <p className="text-xs text-gray-400 md:text-sm">Copyright 2020 &copy; All Rights Reserved</p>
-          </div>
-          <div className="w-full md:w-1/2 md:text-center md:mb-0 mb-8">
-            <ul className="list-reset flex justify-center flex-wrap text-xs md:text-sm gap-3">
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  Contact
-                </a>
-              </li>
-              <li className="mx-4">
-                <a href="#" className="text-gray-400 hover:text-white">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  Terms of Use
-                </a>
-              </li>
-            </ul>
-          </div>
+    <div className="shadow-black shadow-2xl">
+     <div className="bg-gray-100 ">
+    <div className="max-w-screen-lg px-4 sm:px-6 text-gray-800 sm:grid md:grid-cols-4 sm:grid-cols-2 mx-auto">
+        <div className="p-5">
+            <h3 className="font-bold text-xl text-red-900">SnapStore</h3>
         </div>
-      </footer>
+        <div className="p-5">
+            <div className="text-sm uppercase text-indigo-600 font-bold">Resources</div>
+            <a className="my-3 block" href="/#">Documentation <span className="text-teal-600 text-xs p-1"></span></a><a
+                className="my-3 block" href="/#">Tutorials <span className="text-teal-600 text-xs p-1"></span></a><a
+                className="my-3 block" href="/#">Support <span className="text-teal-600 text-xs p-1">New</span></a>
+        </div>
+        <div className="p-5">
+            <div className="text-sm uppercase text-indigo-600 font-bold">Support</div>
+            <a className="my-3 block" href="/#">Help Center <span className="text-teal-600 text-xs p-1"></span></a><a
+                className="my-3 block" href="/#">Privacy Policy <span className="text-teal-600 text-xs p-1"></span></a><a
+                className="my-3 block" href="/#">Conditions <span className="text-teal-600 text-xs p-1"></span></a>
+        </div>
+        <div className="p-5">
+            <div className="text-sm uppercase text-indigo-600 font-bold">Contact us</div>
+            <a className="my-3 block" href="/#">XXX XXXX, Floor 4 San Francisco, CA
+                <span className="text-teal-600 text-xs p-1"></span></a><a className="my-3 block" href="/#">contact@company.com
+                <span className="text-teal-600 text-xs p-1"></span></a>
+        </div>
+    </div>
+</div>
+
+<div className="bg-gray-100 pt-2">
+    <div className="flex pb-5 px-3 m-auto pt-5 border-t text-gray-800 text-sm flex-col
+      max-w-screen-lg items-center">
+        <div className="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">
+           
+            <a href="/#" className="w-6 mx-1 ">
+            <FaInstagram  className="text-[#fe0ba4] text-xl"/>
+            </a>
+            <a href="/#" className="w-6 mx-1">
+            <FaLinkedinIn className="text-blue-800 text-xl"/>
+            </a>
+            <a href="/#" className="w-6 mx-1">
+            <FaWhatsapp className="text-green-700 text-xl"/>
+            </a>
+            <a href="/#" className="w-6 mx-1">
+            <FaYoutube className="text-red-600 text-xl"/>
+            </a>
+        </div>
+        <div className="my-5">© Copyright 2020. All Rights Reserved.</div>
+    </div>
+</div>
+
     </div>
   );
 };

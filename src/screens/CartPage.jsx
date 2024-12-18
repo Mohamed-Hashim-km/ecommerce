@@ -18,16 +18,13 @@ const CartPage = () => {
   const navigate = useNavigate();
   const [isAddress, setIsAddress] = useState(false);
   const isLoader = useSelector((state) => state.loaderState.isLoading);
-  console.log(isLoader);
-  
 
   const CartListHandler = async () => {
     const snapShot = await getDocs(collection(fireDB, "user", currentUser, "productCart"));
     const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     setCart(res);
     dispatch(cartLengthHandler(res.length));
-    CheckAdress()
-   
+    CheckAdress();
   };
 
   useEffect(() => {
@@ -35,8 +32,6 @@ const CartPage = () => {
       CartListHandler();
     }
   }, [currentUser]);
-
-  console.log(cart);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -47,7 +42,7 @@ const CartPage = () => {
   }, [auth]);
 
   const CheckAdress = async () => {
-    const docRef = await getDocs(collection(fireDB, "user", currentUser, "Adress"));
+    const docRef = await getDocs(collection(fireDB, "user", currentUser, "Address"));
     const address = docRef.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
     if (address.length > 0) {
@@ -55,7 +50,6 @@ const CartPage = () => {
     } else {
       setIsAddress(false);
     }
-
   };
 
   const priceItem = cart.reduce((acc, value) => {
@@ -65,6 +59,8 @@ const CartPage = () => {
   const dicount = cart.reduce((acc, value) => {
     return acc + (Number(value.price) - Number(value.currentPrice)) * Number(value.quantity);
   }, 0);
+
+  const totalPrice = priceItem - dicount;
 
   const totalItem = cart.reduce((acc, value) => {
     return acc + value.quantity;
@@ -89,124 +85,171 @@ const CartPage = () => {
     if (isAddress == false) {
       return navigate("/UserAdress");
     }
-    try {
-      const date = new Date();
-      addDoc(collection(fireDB, "user", currentUser, "buyedItems"), {
-        uid: product.uid,
-        description: product.description,
-        price: product.price,
-        currentPrice: product.currentPrice,
-        productImageUrl: product.productImageUrl,
-        quantity: product.quantity,
-        category: product.category,
-        title: product.title,
-        orderId: Date.now(),
-        status: "OrederConfirmed",
-        date: date.toLocaleDateString(),
-        time: new Date().toLocaleTimeString(),
-      });
-      addDoc(collection(fireDB, "saleItmes"), {
-        uid: product.uid,
-        description: product.description,
-        price: product.price,
-        currentPrice: product.currentPrice,
-        productImageUrl: product.productImageUrl,
-        quantity: product.quantity,
-        title: product.title,
-        category: product.category,
-        email: currentUserEmail,
-        orderId: Date.now(),
-        status: "OrederConfirmed",
-        date: date.toLocaleDateString(),
-        time: new Date().toLocaleTimeString(),
-      });
-      toast.success("Buy SuccessFully");
-      CartListHandler();
-    } catch (error) {
-      console.log(error);
-    }
 
+    var options = {
+      key: "rzp_test_M1n7cG9Mgzq6WM",
+      key_secret: "aN8hF5KVXSzu42QuupFDTiEd",
+      amount: parseInt(product.price * product.quantity * 100),
+      currency: "INR",
+      order_receipt: "order_rcptid_",
+      name: "SnapStore",
+      description: "for testing purpose",
+      handler: function (response) {
+        console.log(response);
+
+        try {
+          const date = new Date();
+          addDoc(collection(fireDB, "user", currentUser, "buyedItems"), {
+            uid: product.uid,
+            description: product.description,
+            price: product.price,
+            currentPrice: product.currentPrice,
+            productImageUrl: product.productImageUrl,
+            quantity: product.quantity,
+            category: product.category,
+            title: product.title,
+            orderId: Date.now(),
+            status: "OrederConfirmed",
+            date: date.toLocaleDateString(),
+            time: new Date().toLocaleTimeString(),
+          });
+          addDoc(collection(fireDB, "saleItmes"), {
+            uid: product.uid,
+            description: product.description,
+            price: product.price,
+            currentPrice: product.currentPrice,
+            productImageUrl: product.productImageUrl,
+            quantity: product.quantity,
+            title: product.title,
+            category: product.category,
+            email: currentUserEmail,
+            orderId: Date.now(),
+            status: "OrederConfirmed",
+            date: date.toLocaleDateString(),
+            time: new Date().toLocaleTimeString(),
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
+        toast.success("Payment Successful", {
+          toastId: 1,
+        });
+        CartListHandler();
+
+        try {
+          deleteDoc(doc(fireDB, "user", currentUser, "productCart", product.id));
+        } catch (error) {
+          console.error("Error deleting product: ", error);
+        }
+      },
+
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    var pay = new window.Razorpay(options);
+    pay.open();
+    console.log(pay);
+  };
+
+  const CheckOutHandlerDelete = async () => {
     try {
-      await deleteDoc(doc(fireDB, "user", currentUser, "productCart", product.id));
-     
+      const cartRef = collection(fireDB, "user", currentUser, "productCart");
+      const cartSnapshot = await getDocs(cartRef);
+
+      const deletePromises = cartSnapshot.docs.map((doc) => deleteDoc(doc.ref));
+
+      await Promise.all(deletePromises);
+      CartListHandler();
     } catch (error) {
       console.error("Error deleting product: ", error);
     }
   };
-
-  const CheckOutHandlerDelete = async (id) => {
-    try {
-      await deleteDoc(doc(fireDB, "user", currentUser, "productCart", id));
-      CartListHandler();
-    } catch (error) {
-      console.error("Error deleting product: ", error);
-    }
-  };
-console.log(cart);
 
   const CheckOutHandler = async () => {
     if (isAddress == false) {
       return navigate("/UserAdress");
     }
-    try {
-      if (cart.length>0) {
-        const date = new Date();
-        cart.map((product) => {
-          CheckOutHandlerDelete(product.id);
 
-          return addDoc(collection(fireDB, "user", currentUser, "buyedItems"), {
-            uid: product.uid,
-            description: product.description,
-            price: product.price,
-            currentPrice: product.currentPrice,
-            productImageUrl: product.productImageUrl,
-            quantity: product.quantity,
-            title: product.title,
-            category: product.category,
-            orderId: Date.now(),
-            status: "OrederConfirmed",
-            date: date.toLocaleDateString(),
-            email: currentUserEmail,
-            time: new Date().toLocaleTimeString(),
-          });
-        });
+    var options = {
+      key: "rzp_test_M1n7cG9Mgzq6WM",
+      key_secret: "aN8hF5KVXSzu42QuupFDTiEd",
+      amount: parseInt(totalPrice * 100),
+      currency: "INR",
+      order_receipt: "order_rcptid_",
+      name: "SnapStore",
+      description: "for testing purpose",
+      handler: function (response) {
+        console.log(response);
+        try {
+          if (cart.length > 0) {
+            const date = new Date();
+            cart.map((product) => {
+              return addDoc(collection(fireDB, "user", currentUser, "buyedItems"), {
+                uid: product.uid,
+                description: product.description,
+                price: product.price,
+                currentPrice: product.currentPrice,
+                productImageUrl: product.productImageUrl,
+                quantity: product.quantity,
+                title: product.title,
+                category: product.category,
+                orderId: Date.now(),
+                status: "OrederConfirmed",
+                date: date.toLocaleDateString(),
+                email: currentUserEmail,
+                time: new Date().toLocaleTimeString(),
+              });
+            });
 
-        cart.map((product) => {
-          CheckOutHandlerDelete(product.id);
+            cart.map((product) => {
+              return addDoc(collection(fireDB, "saleItems"), {
+                uid: product.uid,
+                description: product.description,
+                price: product.price,
+                currentPrice: product.currentPrice,
+                productImageUrl: product.productImageUrl,
+                quantity: product.quantity,
+                title: product.title,
+                category: product.category,
+                date: date.toLocaleDateString(),
+                orderId: Date.now(),
+                status: "OrederConfirmed",
+                email: currentUserEmail,
+                time: new Date().toLocaleTimeString(),
+              });
+            });
+          } else {
+            toast.error("Cart Is Empty", {
+              toastId: 1,
+            });
+          }
+        } catch (error) {
+          console.error("Error adding documents to Firestore:", error);
+        }
 
-          return addDoc(collection(fireDB, "saleItems"), {
-            uid: product.uid,
-            description: product.description,
-            price: product.price,
-            currentPrice: product.currentPrice,
-            productImageUrl: product.productImageUrl,
-            quantity: product.quantity,
-            title: product.title,
-            category: product.category,
-            date: date.toLocaleDateString(),
-            orderId: Date.now(),
-            status: "OrederConfirmed",
-            email: currentUserEmail,
-            time: new Date().toLocaleTimeString(),
-          });
-        });
-        toast.success("Buy SuccessFully");
-        CartListHandler();
-      } else {
-        toast.error("Cart Is Empty", {
+        toast.success("Payment Successful", {
           toastId: 1,
         });
-      }
-    } catch (error) {
-      console.error("Error adding documents to Firestore:", error);
-    }
+        CheckOutHandlerDelete();
+      },
+
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    var pay = new window.Razorpay(options);
+    pay.open();
+    console.log(pay);
   };
 
   const QuantityIncrementHandler = async (id) => {
     try {
       const docRef = await getDoc(doc(fireDB, "user", currentUser, "productCart", id));
       const products = { uid: docRef.id, ...docRef.data() };
-      console.log(products);
 
       setDoc(doc(fireDB, "user", currentUser, "productCart", id), {
         ...products,
@@ -222,7 +265,6 @@ console.log(cart);
     try {
       const docRef = await getDoc(doc(fireDB, "user", currentUser, "productCart", id));
       const products = { uid: docRef.id, ...docRef.data() };
-      console.log(products);
 
       if (products.quantity > 1) {
         setDoc(doc(fireDB, "user", currentUser, "productCart", id), {
@@ -236,26 +278,12 @@ console.log(cart);
     }
   };
 
-
-
-  
-
-
- 
-   
-  
-  
   return (
     <>
       {isLoader ? (
         <Loader />
       ) : (
         <Layout>
-          
-
-
-         
-
           <div className="container mx-auto  max-w-7xl px-2 lg:px-0">
             <div className="mx-auto max-w-2xl py-8 lg:max-w-7xl">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"></h1>
@@ -287,8 +315,8 @@ console.log(cart);
                                   <p className="text-xs font-medium text-gray-500 line-through">{product.price}</p>
                                   <p className="text-sm font-medium text-gray-900">&nbsp;&nbsp;{product.currentPrice}</p>
                                 </div>
-                                <button type="button"  onClick={() => BuynowHandler(product)} className="mt-8 border border-black px-4 rounded-lg">
-                                  Buy Now
+                                <button type="button" onClick={() => BuynowHandler(product)} className="mt-8 text-white text-sm px-4 bg-pink-600 rounded-md">
+                                  Buynow
                                 </button>
                               </div>
                             </div>
@@ -355,21 +383,15 @@ console.log(cart);
                     </dl>
                     <div className="px-2 pb-4 font-medium text-green-700">
                       <div className="flex gap-4 mb-6">
-                      
-                          <button
-                            type="button"
-                            onClick={() => navigate("/UserAdress")}
-                            className="w-full px-4 py-3 text-center text-gray-100 bg-pink-600 border border-transparent dark:border-gray-700   rounded-xl"
-                          >
-                            Add Address
-                          </button>
-                      
                         <button
                           type="button"
-                          onClick={CheckOutHandler}
-                         
+                          onClick={() => navigate("/UserAdress")}
                           className="w-full px-4 py-3 text-center text-gray-100 bg-pink-600 border border-transparent dark:border-gray-700   rounded-xl"
                         >
+                          Add Address
+                        </button>
+
+                        <button type="button" onClick={CheckOutHandler} className="w-full px-4 py-3 text-center text-gray-100 bg-pink-600 border border-transparent dark:border-gray-700   rounded-xl">
                           Check Out
                         </button>
                       </div>
