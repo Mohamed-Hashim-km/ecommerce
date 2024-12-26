@@ -12,7 +12,7 @@ import { onAuthStateChanged } from "firebase/auth";
 const ProductInfo = () => {
   const [currentUser, setcurrentUser] = useState();
 
-  const isLoad = useSelector((state) => state.loaderState.isLoading);
+  const [isLoad,setIsLoad]=useState(false)
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -22,10 +22,10 @@ const ProductInfo = () => {
   console.log(product);
 
   const fetchCartProductInfo = async () => {
-    dispatch(loaderHandler(true));
+   setIsLoad(true)
     const docRef = await getDoc(doc(fireDB, "user", currentUser, "productCart", id));
     setProduct({ uid: docRef.id, ...docRef.data() });
-    dispatch(loaderHandler(false));
+    setIsLoad(false)
   };
 
   useEffect(() => {
@@ -34,10 +34,10 @@ const ProductInfo = () => {
   }, [id]);
 
   const fetchProductInfo = async () => {
-    dispatch(loaderHandler(true));
+   setIsLoad(true)
     const docRef = await getDoc(doc(fireDB, "products", id));
     setProduct({ uid: docRef.id, ...docRef.data() });
-    dispatch(loaderHandler(false));
+    setIsLoad(false)
   };
 
   useEffect(() => {

@@ -55,7 +55,7 @@ const AddProducts = () => {
     }),
   });
 
-  const isLoader = useSelector((state) => state.loaderState.isLoading);
+    const [isLoad,setIsLoad]=useState(false)
   const dispatch = useDispatch();
 
   const addProductFunction = async () => {
@@ -63,7 +63,7 @@ const AddProducts = () => {
       return toast.error("all fields are required");
     }
 
-    dispatch(loaderHandler(true));
+    setIsLoad(true)
     navigate("/admin-dashboard");
     try {
       const productRef = collection(fireDB, "products");
@@ -72,23 +72,23 @@ const AddProducts = () => {
         toastId: 1,
       });
    
-
+      setIsLoad(false)
       
     } catch (error) {
       console.log(error);
-      dispatch(loaderHandler(false));
+      setIsLoad(false)
       toast.error("Add product failed", {
         toastId: 1,
       });
       
     }
 
-    dispatch(loaderHandler(false));
+    
   };
 
   return (
     <div>
-      {isLoader && <Loader />}
+      {isLoad && <Loader />}
       <div className="flex justify-center items-center h-screen">
         <div className="login_Form bg-white px-8 py-6 border border-black rounded-xl shadow-md">
           <div className="mb-5">

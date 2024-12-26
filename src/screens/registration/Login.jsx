@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
@@ -14,8 +14,9 @@ const Login = () => {
   const password = useRef();
 
   const navigate = useNavigate();
+    const [isLoad, setIsLoad] = useState(false);
+  
 
-  const isLoader = useSelector((state) => state.loaderState.isLoading);
   const dispatch = useDispatch();
 
   const LoginHandler = async (email, password) => {
@@ -25,7 +26,7 @@ const Login = () => {
       });
     }
 
-    dispatch(loaderHandler(true));
+    setIsLoad(true)
 
     try {
       const data = await signInWithEmailAndPassword(auth, email, password);
@@ -39,30 +40,29 @@ const Login = () => {
 
       if (userData.role) {
         navigate(`/admin-dashboard`);
-        dispatch(loaderHandler(false));
+        toast.success("Admin Loged Succussfully")  
+
         
       } else {
-        navigate("/");
-        dispatch(loaderHandler(false));
         dispatch(loggedHandler(true));
-        toast.success("Loged Succussfully")
-        
-      }
+        navigate("/");
+        toast.success("Loged Succussfully")  
+
+      } 
     } catch (error) {
       console.log(error);
-      dispatch(loaderHandler(false));
+    }finally {
+      setIsLoad(false);
     }
   };
 
-  // useEffect(()=>{
-  //   LoginHandler()
-  // },[lkfd])
+  
 
   return (
     <>
       
 
-     {isLoader?<div className="bg-white  justify-center flex min-h-screen items-center ">  <Loader /></div>: 
+     {isLoad?<div className="bg-white  justify-center flex min-h-screen items-center ">  <Loader /></div>: 
      <main className="mx-auto flex min-h-screen  w-full items-center justify-center bg-gray-900 text-white">
      
     <section className="flex w-[30rem] flex-col space-y-10">

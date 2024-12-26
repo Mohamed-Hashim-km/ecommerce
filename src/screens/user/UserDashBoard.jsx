@@ -28,14 +28,16 @@ const UserDashBoard = () => {
 let singleObject={};
 
   
-  const isLoader = useSelector((state) => state.loaderState.isLoading);
+ const [isLoad, setIsLoad] = useState(false);
   const dispatch = useDispatch();
 
   const UserBuyList = async () => {
+    setIsLoad(true)
     
     const snapShot = await getDocs(collection(fireDB, "user", currentUser, "buyedItems"));
     const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     setBuyList(res);
+    setIsLoad(false)
     
    
   };
@@ -90,7 +92,7 @@ let singleObject={};
 
   return (
     <Layout>
-     {isLoader?<div className="bg-gray-900  justify-center flex min-h-screen items-center ">  <Loader /></div>: <div className=" container mx-auto px-4 py-5 lg:py-8">
+     {isLoad?<div className="bg-gray-900  justify-center flex min-h-screen items-center ">  <Loader /></div>: <div className=" container mx-auto px-4 py-5 lg:py-8">
         <div className="top ">
           <div className=" bg-white py-5 shadow-lg shadow-black  border ">
             <div className="flex justify-center">

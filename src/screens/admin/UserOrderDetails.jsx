@@ -3,33 +3,28 @@ import Layout from "../../components/Layout";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import { collection, deleteDoc, doc, getDoc, getDocs, query } from "firebase/firestore";
-import { loggedHandler } from "../../store/isWork";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { loaderHandler } from "../../store/isWork";
 import Loader from "../../components/Loader";
 import { useParams } from "react-router-dom";
 const UserOrderDetails = () => {
   const [user, setUser] = useState([]);
   const [buyList, setBuyList] = useState([]);
   const [address, UserAdress] = useState([]);
+  const [isLoad, setIsLoad] = useState(false);
   console.log(buyList);
   const { id } = useParams();
   console.log(id);
 
   console.log(address);
 
-  const isLoader = useSelector((state) => state.loaderState.isLoading);
-  const dispatch = useDispatch();
-
   const UserBuyList = async () => {
-    dispatch(loaderHandler(true));
+    setIsLoad(true);
     const snapShot = await getDocs(collection(fireDB, "user", id, "buyedItems"));
 
     const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
     setBuyList(res);
-    dispatch(loaderHandler(false));
+    setIsLoad(false);
+
     userAddress();
   };
 
@@ -45,7 +40,7 @@ const UserOrderDetails = () => {
 
   return (
     <>
-      {isLoader ? (
+      {isLoad ? (
         <Loader />
       ) : (
         <>

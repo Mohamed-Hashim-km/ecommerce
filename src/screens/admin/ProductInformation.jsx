@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { addDoc, collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
-import { loaderHandler } from "../../store/isWork";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, fireDB } from "../../firebase/FirebaseConfig";
@@ -9,8 +8,7 @@ import Loader from "../../components/Loader";
 
 const ProductInformation = () => {
     const [currentUser, setcurrentUser] = useState();
-
-    const isLoad = useSelector((state) => state.loaderState.isLoading);
+     const [isLoad,setIsLoad]=useState(false)
     const dispatch = useDispatch();
     const { id } = useParams();
   
@@ -20,10 +18,10 @@ const ProductInformation = () => {
     console.log(product);
   
     const fetchCartProductInfo = async () => {
-      dispatch(loaderHandler(true));
+      setIsLoad(true)
       const docRef = await getDoc(doc(fireDB, "user", currentUser, "productCart", id));
       setProduct({ uid: docRef.id, ...docRef.data() });
-      dispatch(loaderHandler(false));
+      setIsLoad(false)
     };
   
     useEffect(() => {
@@ -32,10 +30,10 @@ const ProductInformation = () => {
     }, [id]);
   
     const fetchProductInfo = async () => {
-      dispatch(loaderHandler(true));
+      setIsLoad(true)
       const docRef = await getDoc(doc(fireDB, "products", id));
       setProduct({ uid: docRef.id, ...docRef.data() });
-      dispatch(loaderHandler(false));
+      setIsLoad(false)
     };
   
     useEffect(() => {

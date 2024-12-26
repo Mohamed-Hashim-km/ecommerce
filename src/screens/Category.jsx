@@ -13,14 +13,15 @@ const Category = () => {
   const { categoryName } = useParams();
   const [product, setProduct] = useState([]);
 
-  const isLoad = useSelector((state) => state.loaderState.isLoading);
+
+  const [isLoad,setIsLoad]=useState(false)
   const dispatch = useDispatch();
   const GetAllProducts = async () => {
-    dispatch(loaderHandler(true));
+    setIsLoad(true)
     const snapshot = await getDocs(collection(fireDB, "products"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
     setProduct(data);
-    dispatch(loaderHandler(false));
+    setIsLoad(true)
   };
 
   console.log(product);

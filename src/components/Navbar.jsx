@@ -10,33 +10,41 @@ import { collection, getDocs } from "firebase/firestore";
 import { cartLengthHandler } from "../store/isWork";
 
 const Navbar = () => {
-  const isLog = useSelector((state) => state.loaderState.isLogged);
 
   const cartLength = useSelector((state) => state.loaderState.cartLength);
+  const isLog = useSelector((state) => state.loaderState.isLogged);
+
 
   const [currentUser, setCurrentUser] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  onAuthStateChanged(auth, (user) => {
-    setCurrentUser(user.uid);
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user.uid);
+        dispatch(loggedHandler(true));
+      } else {
+        setCurrentUser(null);
+        dispatch(loggedHandler(false));
+      }
+    });
+  }, [dispatch]);
 
-  if (currentUser) {
-    dispatch(loggedHandler(true));
-  } else {
-    dispatch(loggedHandler(false));
-  }
+
+
+ 
 
   const LoggoutHandler =async () => {
     try {
-      await auth.signOut(); 
+     
+     await auth.signOut(); 
       dispatch(loggedHandler(false));
-      navigate("/"); 
       toast.success("Logout", {
         toastId: 1
       });
+      navigate("/"); 
     } catch (error) {
       toast.error("Logout failed: " + error.message); 
     }
@@ -54,6 +62,9 @@ const Navbar = () => {
     carts();
   }, [currentUser]);
 
+
+
+
  
 
   return (
@@ -70,15 +81,7 @@ const Navbar = () => {
               <li>
                 <Link to={"/"}>Home</Link>
               </li>
-              {/* <li>
-                <Link to={"/allProducts"}>All Products</Link>
-              </li> */}
-
-              {/* {!isLog && (
-                <li>
-                  <Link to={"/signup"}>Signup</Link>
-                </li>
-              )} */}
+              
               {!isLog && (
                 <li>
                   <Link to={"/login"}>Login</Link>

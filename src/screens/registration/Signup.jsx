@@ -4,8 +4,7 @@ import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { loaderHandler } from "../../store/isWork";
+
 import Loader from "../../components/Loader";
 
 const Signup = () => {
@@ -14,8 +13,7 @@ const Signup = () => {
   const password = useRef("");
   const navigate = useNavigate();
 
-  const isLoader = useSelector((state) => state.loaderState.isLoading);
-  const dispatch = useDispatch();
+  const [isLoad, setIsLoad] = useState(false);
 
   const SighnupHandler = async (name, email, password) => {
     if (name.current.value == "" || email.current.value == "" || password.current.value == "") {
@@ -26,7 +24,7 @@ const Signup = () => {
 
     const names = name.current.value;
 
-    dispatch(loaderHandler(true));
+    setIsLoad(true);
 
     try {
       const data = await createUserWithEmailAndPassword(auth, email.current.value, password.current.value);
@@ -44,19 +42,18 @@ const Signup = () => {
 
       toast.success("Signed SuccussFully");
       navigate("/login");
-      dispatch(loaderHandler(false));
+      setIsLoad(false);
     } catch (error) {
       console.log(error);
       toast.error("Email Alredy Used");
-      dispatch(loaderHandler(false));
+      setIsLoad(false);
     }
   };
 
   return (
     <>
-      {isLoader ? (
+      {isLoad ? (
         <div className="bg-white min-h-screen flex justify-center items-center">
-          {" "}
           <Loader />
         </div>
       ) : (
