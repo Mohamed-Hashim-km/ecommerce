@@ -83,7 +83,7 @@ const ProductInfo = () => {
 
   return (
     <Layout>
-      {isLoad ? (
+      {/* {isLoad ? (
         <Loader />
       ) : (
         <section className="py-5 lg:py-16 font-poppins dark:bg-gray-800">
@@ -99,7 +99,7 @@ const ProductInfo = () => {
               <div className="w-full px-4 md:w-1/2">
                 <div className="lg:pl-20">
                   <div className="mb-6 ">
-                    <h2 className="max-w-xl mb-6 text-xl font-semibold leading-loose tracking-wide text-gray-700 md:text-2xl dark:text-gray-300">{product.title}</h2>
+                    <h2 className="max-w-xl mb-6 text-xl font-semibold leading-loose tracking-wide text-gray-800 md:text-2xl dark:text-gray-300">{product.title}</h2>
                     <div className="flex flex-wrap items-center mb-6">
                       <ul className="flex mb-4 mr-2 lg:mb-0">
                         <li>
@@ -132,17 +132,17 @@ const ProductInfo = () => {
                         </li>
                       </ul>
                     </div>
-                    <div>
-                      <p className="inline-block text-lg line-through font-medium text-gray-700 dark:text-gray-400 ">
+                    <div >
+                      <p className="inline-block text-lg line-through font-medium text-gray-800 dark:text-gray-400 ">
                         <span>Rs.{product.price}</span>
                       </p>
                     </div>
-                    <p className="inline-block text-2xl font-semibold text-gray-700 dark:text-gray-400 ">
+                    <p className="inline-block text-2xl font-semibold text-gray-800 dark:text-gray-400 ">
                       <span>Rs.{product.currentPrice}</span>
                     </p>
                   </div>
                   <div className="mb-6">
-                    <h2 className="mb-2 text-lg font-bold text-gray-700 dark:text-gray-400"></h2>
+                    <h2 className="mb-2 text-lg font-bold text-gray-800 dark:text-gray-400"></h2>
                     <p>{product.description}</p>
                   </div>
                   <div className="mb-6 " />
@@ -161,7 +161,60 @@ const ProductInfo = () => {
             </div>
           </div>
         </section>
-      )}
+
+
+
+
+
+
+      )} */}
+    
+    {isLoad ? (
+        <Loader />
+      ) : (  <main className="dark:bg-gray-800 bg-white relative overflow-hidden h-[80vh]">
+    {/* <header className="h-24 sm:h-32 flex items-center z-30 w-full">
+      
+    </header> */}
+    <div className="bg-white dark:bg-gray-800 flex mt-[150px]  relative z-20 items-center overflow-hidden">
+        <div className="container mx-auto px-6 flex relative ">
+            <div className="sm:w-2/3 lg:w-2/3 flex flex-col relative z-20">
+                <span className="w-20 h-2  dark:bg-white mb-12">
+                </span>
+                <h1
+                    className="font-bebas-neue uppercase text-2xl sm:text-2xl font-black flex flex-col leading-none dark:text-white text-gray-800">
+                   {product.title}
+                    {/* <span className="text-5xl sm:text-7xl">
+                        Time
+                    </span> */}
+                </h1>
+                <p className="text-sm sm:text-base text-gray-800 dark:text-white">
+                {product.description}
+                </p>
+                <div className="mt-3">
+                <p className="inline-block text-lg line-through font-medium text-gray-800 dark:text-gray-400 ">
+                        <span>Rs.{product.price}</span>
+                      </p>
+                </div>
+                <div>
+                <p className="inline-block text-2xl font-semibold text-gray-800 dark:text-gray-400 ">
+                      <span>Rs.{product.currentPrice}</span>
+                    </p>
+                </div>
+                <div className="flex mt-8">
+                    <a href="#"
+                     onClick={AddCartHandler}   className="uppercase py-2 px-4 rounded-lg bg-pink-500 border-2 border-transparent text-white text-md mr-4 hover:bg-pink-400">
+                        ADD TO CART
+                    </a>
+                  
+                </div>
+            </div>
+            <div className="hidden sm:block w-full sm:w-1/2 lg:w-2/3 relative">
+                <img src={product.productImageUrl} className="max-w-xs w-full object-fill md:max-w-sm m-auto"/>
+            </div>
+        </div>
+    </div>
+</main> )}
+
     </Layout>
   );
 };

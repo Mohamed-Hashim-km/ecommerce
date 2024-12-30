@@ -6,6 +6,7 @@ import { productDataStore } from "../../store/productData";
 import { useDispatch } from "react-redux";
 import Searchbar from "../../components/Searchbar";
 import ProductSeacrh from "./ProductSeacrh";
+import { toast } from "react-toastify";
 const ProductDetail = ({GetAllProducts}) => {
   const [product, setProduct] = useState([]);
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const ProductDetail = ({GetAllProducts}) => {
       await deleteDoc(doc(fireDB, "products", id));
       GetProducts();
       GetAllProducts()
+      toast.success("Product Deleted")
     } catch (error) {
       console.error("Error deleting product: ", error);
     }
@@ -109,7 +111,7 @@ const ProductDetail = ({GetAllProducts}) => {
                     className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-black stroke-slate-500 text-slate-500 text-red-500 cursor-pointer "
                   >
                    <button
-        className="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+        className="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100  rounded-r-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
         <span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" className="w-6 h-6">
@@ -125,7 +127,7 @@ const ProductDetail = ({GetAllProducts}) => {
                     className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-black stroke-slate-500 text-slate-500 text-red-500 cursor-pointer "
                   >
                     <button
-        className="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100 border border-slate-200 rounded-l-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
+        className="text-slate-800 hover:text-blue-600 text-sm bg-white hover:bg-slate-100  rounded-l-lg font-medium px-4 py-2 inline-flex space-x-1 items-center">
         <span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" className="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"

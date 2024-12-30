@@ -25,21 +25,21 @@ const UserDashBoard = () => {
   
 
 
-let singleObject={};
+
 
   
  const [isLoad, setIsLoad] = useState(false);
-  const dispatch = useDispatch();
 
   const UserBuyList = async () => {
     setIsLoad(true)
-    
     const snapShot = await getDocs(collection(fireDB, "user", currentUser, "buyedItems"));
     const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    
     setBuyList(res);
+
     setIsLoad(false)
     
-   
+    
   };
 
   const recentLoggedUser = async (userid) => {
@@ -48,6 +48,7 @@ let singleObject={};
     const querysnapshot = await getDoc(userDetail);
     console.log(querysnapshot.data());
     setUser(querysnapshot.data());
+   
     
   };
 
@@ -58,41 +59,26 @@ let singleObject={};
         recentLoggedUser(user.uid);
         setcurrentUser(user.uid);
       },
+      
       []
+      
     );
+   
   }, [auth]);
 
   useEffect(() => {
     UserBuyList();
+    
   }, [currentUser]);
-
-
- 
   
 
 
  
   
-
-
-
-  // const RemoveOrderHandler=async(id)=>{
-
-  //    try {
-  //         await deleteDoc(doc(fireDB, "user", currentUser, "buyedItems", id));
-  //         UserBuyList()
-  //         toast.success("Order Removed SuccussFully",{
-  //           toastId:1
-  //         });
-
-  //       } catch (error) {
-  //         console.error("Error deleting product: ", error);
-  //       }
-  // }
 
   return (
     <Layout>
-     {isLoad?<div className="bg-gray-900  justify-center flex min-h-screen items-center ">  <Loader /></div>: <div className=" container mx-auto px-4 py-5 lg:py-8">
+     {isLoad?<div className="  justify-center flex min-h-screen items-center ">  <Loader /></div>: <div className=" container mx-auto px-4 py-5 lg:py-8">
         <div className="top ">
           <div className=" bg-white py-5 shadow-lg shadow-black  border ">
             <div className="flex justify-center">

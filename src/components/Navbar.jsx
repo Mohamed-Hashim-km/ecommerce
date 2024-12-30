@@ -10,46 +10,37 @@ import { collection, getDocs } from "firebase/firestore";
 import { cartLengthHandler } from "../store/isWork";
 
 const Navbar = () => {
-
   const cartLength = useSelector((state) => state.loaderState.cartLength);
   const isLog = useSelector((state) => state.loaderState.isLogged);
-
 
   const [currentUser, setCurrentUser] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user.uid);
-        dispatch(loggedHandler(true));
-      } else {
-        setCurrentUser(null);
-        dispatch(loggedHandler(false));
-      }
-    });
-  }, [dispatch]);
-
-
-
- 
-
-  const LoggoutHandler =async () => {
-    try {
-     
-     await auth.signOut(); 
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setCurrentUser(user.uid);
+      dispatch(loggedHandler(true));
+    } else {
+      setCurrentUser(null);
       dispatch(loggedHandler(false));
-      toast.success("Logout", {
-        toastId: 1
-      });
-      navigate("/"); 
-    } catch (error) {
-      toast.error("Logout failed: " + error.message); 
     }
-  };
+  });
 
+  const LoggoutHandler = async () => {
+    try {
+      await auth.signOut();
+
+      toast.success("logout success ", {
+        toastId: 1,
+      });
+      navigate("/");
+    } catch (error) {
+      toast.error("Logout failed: " + error.message);
+    }
+    dispatch(loggedHandler(false));
+  };
 
   const carts = async () => {
     const snapShot = await getDocs(collection(fireDB, "user", currentUser, "productCart"));
@@ -61,11 +52,6 @@ const Navbar = () => {
   useEffect(() => {
     carts();
   }, [currentUser]);
-
-
-
-
- 
 
   return (
     <>
@@ -81,7 +67,7 @@ const Navbar = () => {
               <li>
                 <Link to={"/"}>Home</Link>
               </li>
-              
+
               {!isLog && (
                 <li>
                   <Link to={"/login"}>Login</Link>
@@ -115,8 +101,8 @@ const Navbar = () => {
               )}
 
               {isLog && (
-                <li  className=" cursor-pointer" onClick={LoggoutHandler}>
-                <button>Logout</button>  
+                <li className=" cursor-pointer" onClick={LoggoutHandler}>
+                  <button>Logout</button>
                 </li>
               )}
             </ul>

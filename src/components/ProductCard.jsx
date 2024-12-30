@@ -90,11 +90,11 @@ const ProductCard = () => {
 
   const dispatch = useDispatch();
   const addAllProducts = async () => {
-    dispatch(loaderHandler(true));
+    
     const snapshot = await getDocs(collection(fireDB, "products"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
-    dispatch(loaderHandler(false));
-    setProduct(data.slice(0, 8));
+   
+    setProduct(data.slice(0, 12));
   };
 
   useEffect(() => {
@@ -125,7 +125,9 @@ const ProductCard = () => {
         title: product.title,
         category: product.category,
       });
-      toast.success("Cart Added");
+      toast.success("Cart Added",{
+        toastId:1
+      });
 
       const snapShot = await getDocs(collection(fireDB, "user", currentUser, "productCart"));
       const length = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -154,26 +156,27 @@ const ProductCard = () => {
             <div className="flex flex-wrap -m-4">
               {product.map((item, index) => {
                 return (
-                  <div key={index} className="p-4 w-full md:w-1/4 sm:w-1/2 lg:w-1/4">
-                    <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer px-2">
-                      <img onClick={() => navigate(`/productInfo/${item.uid}`)} className="lg:h-80 h-64 object-contain w-full py-5" src={item.productImageUrl} alt="product" />
-                      <div className="p-6">
-                        <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"></h2>
-                        <h1 className="title-font text-lg font-medium text-gray-900 mb-3 truncate">{item.title}</h1>
-                        <h1 className="text-xs font-medium text-gray-500 line-through">{item.price}</h1>
-                        <h1 className="title-font text-lg font-medium text-gray-900 mb-3">₹{item.currentPrice}</h1>
-
-                        <div className="flex justify-center">
-                          <button onClick={() => AddCartHandler(item)} className="bg-pink-500 hover:bg-pink-600 w-full text-white py-2 rounded-lg font-bold">
-                            ADD CART
-                          </button>
-                        </div>
+                  <div key={index} className="p-2 w-full md:w-1/4 sm:w-1/2 lg:w-1/4">  
+                  <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer px-2">
+                    <img onClick={() => navigate(`/productInfo/${item.uid}`)} className="lg:h-60 h-24 object-contain w-full py-1" src={item.productImageUrl} alt="product" />
+                    <div className="p-4">  
+                      <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1"></h2>
+                      <h1 className="title-font text-lg font-medium text-gray-900 mb-2 truncate">{item.title}</h1>  
+                      <h1 className="text-xs font-bold text-gray-500 line-through">₹{item.price}</h1>
+                      <h1 className="title-font text-lg font-medium text-gray-900 mb-2">₹{item.currentPrice}</h1>  
+                
+                      <div className="flex justify-center">
+                        <button onClick={() => AddCartHandler(item)} className="bg-[#fea928] w-full text-white py-2 rounded-lg font-bold">
+                          ADD CART
+                        </button>
                       </div>
                     </div>
                   </div>
+                </div>
                 );
               })}
             </div>
+           
           </div>
         </section>
       </div>

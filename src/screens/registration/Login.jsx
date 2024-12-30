@@ -40,17 +40,19 @@ const Login = () => {
 
       if (userData.role) {
         navigate(`/admin-dashboard`);
-        toast.success("Admin Loged Succussfully")  
+        toast.success("Admin Logged Successfully")  
 
         
       } else {
         dispatch(loggedHandler(true));
         navigate("/");
-        toast.success("Loged Succussfully")  
+        toast.success("Logged Successfully")  
 
       } 
     } catch (error) {
+      setIsLoad(false);
       console.log(error);
+      toast.error("Invalid email or password")
     }finally {
       setIsLoad(false);
     }
@@ -87,6 +89,8 @@ const Login = () => {
         </p>
     </section>
 </main>}
+
+
 
     </>
   );
