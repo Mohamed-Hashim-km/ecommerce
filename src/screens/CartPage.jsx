@@ -308,10 +308,10 @@ const CartPage = () => {
                                 </h3>
                               </div>
                               <div className="mt-1 flex items-end">
-                                <p className="text-xs font-medium text-gray-500 line-through">{product.price}</p>
+                                <p className="text-xs  text-gray-500 font-bold line-through">{product.price}</p>
                                 <p className="text-sm font-medium text-gray-900">&nbsp;&nbsp;{product.currentPrice}</p>
                               </div>
-                              <button type="button" onClick={() => BuynowHandler(product)} className="mt-8 text-white text-sm px-4 bg-pink-600 rounded-md">
+                              <button type="button" onClick={() => BuynowHandler(product)} className="mt-8 text-white py-1 text-sm px-4 bg-[#fea928] rounded-md">
                                 Buynow
                               </button>
                             </div>
@@ -382,12 +382,12 @@ const CartPage = () => {
                       <button
                         type="button"
                         onClick={() => navigate("/UserAdress")}
-                        className="w-full px-4 py-3 text-center text-gray-100 bg-pink-600 border border-transparent dark:border-gray-700   rounded-xl"
+                        className="w-full px-4 py-3 text-center text-gray-100 bg-[#fea928] border border-transparent dark:border-gray-700   rounded-xl"
                       >
                         Add Address
                       </button>
 
-                      <button type="button" onClick={CheckOutHandler} className="w-full px-4 py-3 text-center text-gray-100 bg-pink-600 border border-transparent dark:border-gray-700   rounded-xl">
+                      <button type="button" onClick={CheckOutHandler} className="w-full px-4 py-3 text-center text-gray-100 bg-[#fea928] border border-transparent dark:border-gray-700   rounded-xl">
                         Check Out
                       </button>
                     </div>

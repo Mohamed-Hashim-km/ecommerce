@@ -209,7 +209,7 @@ const ProductInfo = () => {
                 </div>
             </div>
             <div className="hidden sm:block w-full sm:w-1/2 lg:w-2/3 relative">
-                <img src={product.productImageUrl} className="max-w-xs w-full object-fill md:max-w-sm m-auto"/>
+                <img src={product.productImageUrl} className="max-w-xs w-full object-contain md:max-w-sm m-auto"/>
             </div>
         </div>
     </div>

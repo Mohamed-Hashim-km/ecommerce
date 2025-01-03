@@ -1,6 +1,6 @@
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { fireDB } from "../../firebase/FirebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
@@ -89,8 +89,11 @@ const AddProducts = () => {
   return (
     <div>
       {isLoad && <Loader />}
-      <div className="flex justify-center items-center h-screen">
-        <div className="login_Form bg-white px-8 py-6 border border-black rounded-xl shadow-md">
+      <div className="h-screen">
+       
+      <Link to={"/admin-dashboard"}><button className="px-4 py-2 rounded-md text-white bg-[#fea928]">Go Back</button></Link>
+      <div className="flex justify-center items-center ">
+        <div className="login_Form bg-white px-8 py-6 shadow-black rounded-xl shadow-md">
           <div className="mb-5">
             <h2 className="text-center text-2xl font-bold text-black "></h2>
           </div>
@@ -106,7 +109,7 @@ const AddProducts = () => {
                 });
               }}
               placeholder="Product Title"
-              className="bg-white border text-black border-black px-2 py-2 w-96 rounded-md outline-none placeholder-black"
+              className="bg-white border text-black border-black px-2 py-2 w-96 rounded-md outline-none placeholder-gray-500"
             />
           </div>
           <div className="mb-3">
@@ -121,7 +124,7 @@ const AddProducts = () => {
                 });
               }}
               placeholder="Product Price"
-              className="bg-white border text-black border-black px-2 py-2 w-96 rounded-md outline-none placeholder-black"
+              className="bg-white border text-black border-black px-2 py-2 w-96 rounded-md outline-none placeholder-gray-500"
             />
           </div>
           <div className="mb-3">
@@ -136,7 +139,7 @@ const AddProducts = () => {
                 });
               }}
               placeholder="DiscountPrice"
-              className="bg-white border text-black border-black px-2 py-2 w-96 rounded-md outline-none placeholder-black"
+              className="bg-white border text-black border-black px-2 py-2 w-96 rounded-md outline-none placeholder-gray-500"
             />
           </div>
           <div className="mb-3">
@@ -151,7 +154,7 @@ const AddProducts = () => {
                 });
               }}
               placeholder="Product Image Url"
-              className="bg-white border text-black border-black px-2 py-2 w-96 rounded-md outline-none placeholder-black"
+              className="bg-white border text-black border-black px-2 py-2 w-96 rounded-md outline-none placeholder-gray-500"
             />
           </div>
           <div className="mb-3">
@@ -165,11 +168,11 @@ const AddProducts = () => {
               }}
               className="w-full px-1 py-2 text-black bg-white border border-black rounded-md outline-none  "
             >
-              <option disabled>Select Product Category</option>
+              <option disabled className="text-gray-500">Select Product Category</option>
               {categoryList.map((value, index) => {
                 const { name } = value;
                 return (
-                  <option className=" first-letter:uppercase" key={index} value={name}>
+                  <option className=" first-letter:uppercase text-gray-500" key={index} value={name}>
                     {name}
                   </option>
                 );
@@ -188,16 +191,17 @@ const AddProducts = () => {
               name="description"
               placeholder="Product Description"
               rows="5"
-              className=" w-full px-2 py-1 text-black bg-white border border-black rounded-md outline-none placeholder-black "
+              className=" w-full px-2 py-1 text-black bg-white border border-black rounded-md outline-none placeholder-gray-500 "
             ></textarea>
           </div>
           <div className="mb-3">
-            <button onClick={addProductFunction} type="button" className="bg-blue-800  w-full text-white text-center py-2 font-bold rounded-md ">
+            <button onClick={addProductFunction} type="button" className="bg-[#fea928]  w-full text-white text-center py-2 font-bold rounded-md ">
               Add
             </button>
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

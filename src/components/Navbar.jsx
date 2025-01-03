@@ -110,6 +110,7 @@ const Navbar = () => {
           <Searchbar />
         </div>
       </nav>
+
     </>
   );
 };

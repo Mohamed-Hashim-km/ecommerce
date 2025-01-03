@@ -33,7 +33,7 @@ const Searchbar = () => {
           placeholder="Search here..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="  shadow-black shadow-sm placeholder-gray-800 rounded-lg px-2 py-2 w-96 lg:w-96 md:w-96 outline-none text-black "
+          className="  shadow-black shadow-sm placeholder-gray-400 rounded-full px-2 py-2 w-96 lg:w-96 md:w-96 outline-none text-black "
         />
       </div>
       <div className=" flex justify-center">
