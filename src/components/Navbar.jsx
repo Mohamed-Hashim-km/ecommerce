@@ -62,11 +62,12 @@ const Navbar = () => {
               <h2 className=" font-extrabold text-red-900  text-2xl text-center">SnapStore</h2>
             </Link>
           </div>
+          <Searchbar />
           <div className="right flex justify-center mb-4 lg:mb-0">
             <ul className="flex space-x-3 text-black font-medium text-md px-5 ">
-              <li>
+            {isLog && (<li>
                 <Link to={"/"}>Home</Link>
-              </li>
+              </li>)}
 
               {!isLog && (
                 <li>
@@ -78,6 +79,36 @@ const Navbar = () => {
                   <Link to={"/user-dashboard"}>User</Link>
                 </li>
               )}
+
+
+              
+{/* 
+<div class="relative">
+
+  <button class="peer relative z-10 block p-2 transition-colors duration-300 transform rounded-lg focus:outline-none ">
+    <svg class="w-6 h-6 text-black rotate-90" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+    </svg>
+  </button>
+
+  
+  <div
+    class="hidden peer-focus:block absolute right-0 z-20 w-48 mt-2 overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800 border">
+    <a href="#"
+      class="block px-4 py-2 text-sm text-gray-800 transition-colors duration-300 transform border-b dark:text-gray-200 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">small
+      <span class="text-gray-600 dark:text-gray-400">(640x426)</span></a>
+    <a href="#"
+      class="block px-4 py-2 text-sm text-gray-800 transition-colors duration-300 transform border-b dark:text-gray-200 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">medium
+      <span class="text-gray-600 dark:text-gray-400">(1920x1280)</span></a>
+    <a href="#"
+      class="block px-4 py-2 text-sm text-gray-800 transition-colors duration-300 transform dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">large
+      <span class="text-gray-600 dark:text-gray-400">(2400x1600)</span></a>
+  </div>
+</div> */}
+
+    
+        
+
 
               {isLog && (
                 <li className="flex">
@@ -107,7 +138,7 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-          <Searchbar />
+         
         </div>
       </nav>
 

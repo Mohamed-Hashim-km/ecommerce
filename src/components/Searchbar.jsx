@@ -26,6 +26,7 @@ const Searchbar = () => {
   const filterSearchData = data.filter((obj) => obj.description.toLowerCase().includes(search)).slice(0, 8);
 
   return (
+    <>
     <div className="">
       <div className="input flex justify-center">
         <input
@@ -65,8 +66,9 @@ const Searchbar = () => {
      
 
       
-    </div>
-
+    
+</div>
+    </>
 
 
     
