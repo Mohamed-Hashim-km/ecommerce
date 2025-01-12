@@ -69,7 +69,7 @@ const CartPage = () => {
     try {
       await deleteDoc(doc(fireDB, "user", currentUser, "productCart", id));
       CartListHandler();
-      toast.success("Cart Deleted", {
+      toast.success("Item Deleted", {
         toastId: 1,
       });
       const snapShot = await getDocs(collection(fireDB, "user", currentUser, "productCart"));

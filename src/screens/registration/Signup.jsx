@@ -52,41 +52,7 @@ const Signup = () => {
 
   return (
     <>
-      {/* {isLoad ? (
-        <div className="bg-white min-h-screen flex justify-center items-center">
-          <Loader />
-        </div>
-      ) : (
-        <main className="mx-auto flex min-h-screen  w-full items-center justify-center bg-gray-900 text-white">
-          <section className="flex w-[30rem] flex-col space-y-10">
-            <div className="text-center text-4xl font-medium">Signup</div>
-            <div className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
-              <input ref={name} type="text" placeholder="Name" className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none" />
-            </div>
-            <div className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
-              <input ref={email} type="text" placeholder="Email" className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none" />
-            </div>
-
-            <div className="w-full transform border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500">
-              <input ref={password} type="password" placeholder="Password" className="w-full border-none bg-transparent outline-none placeholder:italic focus:outline-none" />
-            </div>
-
-            <button onClick={() => SighnupHandler(name, email, password)} type="button" className="transform rounded-sm bg-indigo-600 py-2 font-bold duration-300 hover:bg-indigo-400">
-              LOG IN
-            </button>
-
-            <p className="text-center text-lg">
-              Have account?
-              <a href="#" className="font-medium text-indigo-500 underline-offset-4 hover:underline">
-                {" "}
-                <Link className=" text-pink-500 font-bold" to={"/login"}>
-                  Login
-                </Link>
-              </a>
-            </p>
-          </section>
-        </main>
-      )} */}
+      
 
 
 {isLoad ? (
@@ -103,11 +69,11 @@ const Signup = () => {
         <div className="mt-5">
             <form action="">
             <div className="relative mt-6">
-                    <input ref={name} type="text" name="email" id="email" placeholder="Name" className="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autocomplete="NA" />
+                    <input ref={name} type="text"  placeholder="Name" className="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autocomplete="NA" />
                     <label for="text" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Name</label>
                 </div>
                 <div className="relative mt-6">
-                    <input ref={email} type="email" name="email" id="email" placeholder="Email Address" className="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autocomplete="NA" />
+                    <input ref={email} type="email"  placeholder="Email Address" className="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" autocomplete="NA" />
                     <label for="email" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Email Address</label>
                 </div>
                 <div className="relative mt-6">

@@ -8,6 +8,12 @@ import { toast } from "react-toastify";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs } from "firebase/firestore";
 import { cartLengthHandler } from "../store/isWork";
+import { MdHome } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
+import { FaPowerOff } from "react-icons/fa";
+import { Tooltip as ReactTooltip } from "react-tooltip";
+import { Tooltip } from "react-tooltip";
+import { RiLoginCircleFill } from "react-icons/ri";
 
 const Navbar = () => {
   const cartLength = useSelector((state) => state.loaderState.cartLength);
@@ -63,85 +69,60 @@ const Navbar = () => {
             </Link>
           </div>
           <Searchbar />
-          <div className="right flex justify-center mb-4 lg:mb-0">
-            <ul className="flex space-x-3 text-black font-medium text-md px-5 ">
-            {isLog && (<li>
-                <Link to={"/"}>Home</Link>
-              </li>)}
+          <div className="right flex justify-center items-center  mb-4 lg:mb-0">
+            <ul className="flex gap-4 space-x-3 items-center text-black font-medium text-md px-5">
+              {isLog && (
+                <li className="gap-4">
+                  <Link to={"/"}>
+                    <MdHome className="text-[23px] hover:text-gray-700 outline-none" 
+            data-tooltip-id="my-tooltip" 
+            data-tooltip-content="Home" 
+               />
+                  </Link>
+                </li>
+              )}
 
               {!isLog && (
                 <li>
-                  <Link to={"/login"}>Login</Link>
+                  <Link to={"/login"} className="hover:text-gray-700">
+                  <RiLoginCircleFill className="text-[27px] hover:text-gray-700 outline-none" data-tooltip-id="my-tooltip" data-tooltip-content="Login"/>
+                  </Link>
                 </li>
               )}
+
               {isLog && (
                 <li>
-                  <Link to={"/user-dashboard"}>User</Link>
+                  <Link to={"/user-dashboard"} className="hover:text-gray-700">
+                    <FaUser className="text-[18px] outline-none" data-tooltip-id="my-tooltip" data-tooltip-content="User" />
+                  </Link>
                 </li>
               )}
 
-
-              
-{/* 
-<div class="relative">
-
-  <button class="peer relative z-10 block p-2 transition-colors duration-300 transform rounded-lg focus:outline-none ">
-    <svg class="w-6 h-6 text-black rotate-90" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-    </svg>
-  </button>
-
-  
-  <div
-    class="hidden peer-focus:block absolute right-0 z-20 w-48 mt-2 overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800 border">
-    <a href="#"
-      class="block px-4 py-2 text-sm text-gray-800 transition-colors duration-300 transform border-b dark:text-gray-200 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">small
-      <span class="text-gray-600 dark:text-gray-400">(640x426)</span></a>
-    <a href="#"
-      class="block px-4 py-2 text-sm text-gray-800 transition-colors duration-300 transform border-b dark:text-gray-200 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">medium
-      <span class="text-gray-600 dark:text-gray-400">(1920x1280)</span></a>
-    <a href="#"
-      class="block px-4 py-2 text-sm text-gray-800 transition-colors duration-300 transform dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">large
-      <span class="text-gray-600 dark:text-gray-400">(2400x1600)</span></a>
-  </div>
-</div> */}
-
-    
-        
-
-
               {isLog && (
-                <li className="flex">
+                <li>
                   <Link to={"/cartPage"}>
-                    <div className=" flex ">
-                      <div className="relative ">
-                        <div className="t-0 absolute left-3">
-                          <p className="flex  h-1 w-1 items-center justify-center rounded-full bg-red-500 p-2 text-xs text-white">{cartLength}</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="file: mt-1 h-6 w-6">
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                          />
-                        </svg>
-                      </div>
+                    <div className="relative flex items-center">
+                      <svg className="w-6 h-6 outline-none fill-current hover:text-gray-700" viewBox="0 0 24 24" data-tooltip-id="my-tooltip" data-tooltip-content="Cart">
+                        <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z" />
+                      </svg>
+                      <span className="absolute top-0 right-0 bg-red-600 text-white text-[10px] rounded-full  w-3 h-3 flex items-center justify-center">{cartLength}</span>
                     </div>
                   </Link>
                 </li>
               )}
 
               {isLog && (
-                <li className=" cursor-pointer" onClick={LoggoutHandler}>
-                  <button>Logout</button>
+                <li className="cursor-pointer items-center flex hover:text-gray-700" onClick={LoggoutHandler}>
+                  <button>
+                    <FaPowerOff className="text-[18px] outline-none" data-tooltip-id="my-tooltip" data-tooltip-content="Logout" />
+                  </button>
                 </li>
               )}
             </ul>
           </div>
-         
         </div>
+        <Tooltip id="my-tooltip" />
       </nav>
-
     </>
   );
 };
