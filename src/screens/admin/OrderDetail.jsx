@@ -42,7 +42,7 @@ const OrderDetail = () => {
     <div>
        
       <div>
-        <div className="py-5 flex justify-between">
+        <div className="py-5 flex justify-between mt-5">
           <h1 className=" text-xl text-black font-bold">All Order</h1>
 
          <div className="relative inline-block text-left">

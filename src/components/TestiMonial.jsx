@@ -92,7 +92,7 @@ const TestiMonial = () => {
               <div className="my-6 " key={data.id}>
                 <div
                   
-                  className="flex flex-col gap-4 shadow-lg py-8 px-6 mx-4 rounded-xl dark:bg-gray-800 bg-primary/10 relative bg-[#fff6e9]"
+                  className="flex flex-col gap-4 shadow-lg py-8 px-6 mx-4 rounded-xl dark:bg-gray-800 bg-white relative bg-[#fff6e9]"
                 >
                   <div className="mb-4">
                     <img

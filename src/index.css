@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body{
+  font-family: 'Montserrat', sans-serif;
+}
+
 /* From Uiverse.io by G4b413l */
 .three-body {
   --uib-size: 35px;

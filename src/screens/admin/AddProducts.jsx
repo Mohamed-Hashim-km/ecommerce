@@ -89,11 +89,12 @@ const AddProducts = () => {
   return (
     <div>
       {isLoad && <Loader />}
-      <div className="h-screen">
+      <div className="h-screen mt-16">
        
-      <Link to={"/admin-dashboard"}><button className="px-4 py-2 rounded-md text-white bg-[#fea928]">Go Back</button></Link>
       <div className="flex justify-center items-center ">
         <div className="login_Form bg-white px-8 py-6 shadow-black rounded-xl shadow-md">
+      <Link to={"/admin-dashboard"}><button className="px-4 py-2 rounded-md text-white bg-[#fea928]">Go Back</button></Link>
+
           <div className="mb-5">
             <h2 className="text-center text-2xl font-bold text-black "></h2>
           </div>

@@ -6,12 +6,11 @@ import { loggedHandler } from "../store/isWork";
 import { auth, fireDB } from "../firebase/FirebaseConfig";
 import { toast } from "react-toastify";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import { cartLengthHandler } from "../store/isWork";
 import { MdHome } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { FaPowerOff } from "react-icons/fa";
-import { Tooltip as ReactTooltip } from "react-tooltip";
 import { Tooltip } from "react-tooltip";
 import { RiLoginCircleFill } from "react-icons/ri";
 
@@ -20,9 +19,21 @@ const Navbar = () => {
   const isLog = useSelector((state) => state.loaderState.isLogged);
 
   const [currentUser, setCurrentUser] = useState(null);
+  console.log(currentUser);
+  const [currentUserName,setCurrentUserName]=useState()
+  console.log(currentUserName);
+  
+  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+
+  const recentLoggedUser = async () => {
+      const userDetail = query(doc(fireDB, "user", currentUser));
+      const querysnapshot = await getDoc(userDetail);
+      setCurrentUserName(querysnapshot.data());
+    };
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -38,7 +49,7 @@ const Navbar = () => {
     try {
       await auth.signOut();
 
-      toast.success("logout success ", {
+      toast.success("Logout success ", {
         toastId: 1,
       });
       navigate("/");
@@ -51,21 +62,24 @@ const Navbar = () => {
   const carts = async () => {
     const snapShot = await getDocs(collection(fireDB, "user", currentUser, "productCart"));
     const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    console.log(res);
+    
 
     dispatch(cartLengthHandler(res.length));
   };
 
   useEffect(() => {
     carts();
+    recentLoggedUser()
   }, [currentUser]);
 
   return (
     <>
-      <nav className="bg-white sticky top-0 z-[999] shadow-lg shadow-black">
+      <nav className="bg-[#f7f3ed] sticky top-0 py-2 z-[999] shadow-md shadow-black">
         <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
           <div className="left py-3 lg:py-0">
             <Link to={"/"}>
-              <h2 className=" font-extrabold text-red-900  text-2xl text-center">SnapStore</h2>
+              <h2 className=" font-extrabold text-orange-900   text-3xl text-center">SnapStore</h2>
             </Link>
           </div>
           <Searchbar />
@@ -74,10 +88,7 @@ const Navbar = () => {
               {isLog && (
                 <li className="gap-4">
                   <Link to={"/"}>
-                    <MdHome className="text-[23px] hover:text-gray-700 outline-none" 
-            data-tooltip-id="my-tooltip" 
-            data-tooltip-content="Home" 
-               />
+                    <MdHome className="text-[23px] hover:text-gray-700 outline-none" data-tooltip-id="my-tooltip" data-tooltip-content="Home" />
                   </Link>
                 </li>
               )}
@@ -85,7 +96,7 @@ const Navbar = () => {
               {!isLog && (
                 <li>
                   <Link to={"/login"} className="hover:text-gray-700">
-                  <RiLoginCircleFill className="text-[27px] hover:text-gray-700 outline-none" data-tooltip-id="my-tooltip" data-tooltip-content="Login"/>
+                    <button className="px-5 py-1 bg-orange-500 rounded-2xl hover:rounded-lg transition-all duration-300 text-white">Get Started</button>
                   </Link>
                 </li>
               )}
@@ -93,7 +104,7 @@ const Navbar = () => {
               {isLog && (
                 <li>
                   <Link to={"/user-dashboard"} className="hover:text-gray-700">
-                    <FaUser className="text-[18px] outline-none" data-tooltip-id="my-tooltip" data-tooltip-content="User" />
+                    <FaUser className="text-[18px] outline-none" data-tooltip-id="my-tooltip" data-tooltip-content={currentUserName?.name} />
                   </Link>
                 </li>
               )}
@@ -105,7 +116,11 @@ const Navbar = () => {
                       <svg className="w-6 h-6 outline-none fill-current hover:text-gray-700" viewBox="0 0 24 24" data-tooltip-id="my-tooltip" data-tooltip-content="Cart">
                         <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z" />
                       </svg>
-                      <span className="absolute top-0 right-0 bg-red-600 text-white text-[10px] rounded-full  w-3 h-3 flex items-center justify-center">{cartLength}</span>
+                      {cartLength == 0 ? (
+                        <span></span>
+                      ) : (
+                        <span className="absolute top-0 right-0 bg-red-600 text-white text-[10px] rounded-full  w-3 h-3 flex items-center justify-center">{cartLength}</span>
+                      )}
                     </div>
                   </Link>
                 </li>

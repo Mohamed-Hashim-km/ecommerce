@@ -25,7 +25,7 @@ const UserDetail = () => {
   return (
     <div>
       <div>
-        <div className="py-5 flex justify-between items-center">
+        <div className="py-5 flex justify-between items-center mt-5">
           <h1 className=" text-xl text-black font-bold">All User</h1>
         </div>
         <div className="w-full overflow-x-auto shadow-sm shadow-black">

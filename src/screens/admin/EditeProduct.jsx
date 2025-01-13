@@ -90,11 +90,12 @@ const EditeProduct = () => {
 
   return (
     <>  
-    <div className="h-screen">
-          <Link to={"/admin-dashboard"}><button className="px-4 py-2 rounded-md text-white bg-[#fea928]">Go Back</button></Link>
+    <div className="h-screen mt-12">
       <div className="flex justify-center items-center ">
         <div className="login_Form  px-8 py-6 shadow-black rounded-xl shadow-md">
           <div className="mb-5">
+          <Link to={"/admin-dashboard"}><button className="px-4 py-2 rounded-md text-white bg-[#fea928]">Go Back</button></Link>
+
             <h2 className="text-center text-2xl font-bold text-black ">Edit</h2>
           </div>
           <div className="mb-3">
@@ -195,7 +196,7 @@ const EditeProduct = () => {
             ></textarea>
           </div>
           <div className="mb-3">
-            <button onClick={ProductEditHandler} type="button" className="0 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md ">
+            <button onClick={ProductEditHandler} type="button" className="0 bg-[#fea928] w-full text-white text-center py-2 font-bold rounded-md ">
               Edit
             </button>
           </div>

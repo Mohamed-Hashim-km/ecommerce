@@ -7,20 +7,19 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store.jsx";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import "slick-carousel/slick/slick.css"; 
+import "react-toastify/dist/ReactToastify.css";
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-     <ToastContainer />
-     <BrowserRouter>
-     <ThemeProvider>
-      <Provider store={store}>
-      <App />
-      </Provider>
-    </ThemeProvider>
-     </BrowserRouter>
-   
+    <ToastContainer autoClose={500} hideProgressBar={true} newestOnTop={true} closeOnClick={true} />
+    <BrowserRouter>
+      <ThemeProvider>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ThemeProvider>
+    </BrowserRouter>
   </StrictMode>
 );
