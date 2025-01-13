@@ -126,7 +126,7 @@ const AdminDashboard = () => {
           <div className="">
             <Tabs>
               <TabList className="flex flex-wrap  -m-4 text-center justify-center ">
-                <Tab className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer">
+                <Tab className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer hover:transition-all hover:duration-500 hover:transform hover:scale-75 hover:z-50 hover:filter hover:ease-in duration-500">
                   <div className=" border bg-white hover:bg-white shadow-md shadow-blue-gray-500 px-4 py-3 rounded-xl">
                     <div className="text-[#fea928] w-12 h-12 mb-3 inline-block">
                       <svg
@@ -154,7 +154,7 @@ const AdminDashboard = () => {
                     <p className=" text-black  font-bold">Total Products</p>
                   </div>
                 </Tab>
-                <Tab className="p-4 md:w-1/4 sm:w-1/2 w-full cursor-pointer">
+                <Tab className="p-4 md:w-1/4 sm:w-1/2 w-full cursor-pointer hover:transition-all hover:duration-500 hover:transform hover:scale-75 hover:z-50 hover:filter hover:ease-in duration-500">
                   <div className=" border bg-white hover:bg-white shadow-md shadow-blue-gray-500 px-4 py-3 rounded-xl">
                     <div className="text-[#fea928] w-12 h-12 mb-3 inline-block">
                       <svg
@@ -181,7 +181,7 @@ const AdminDashboard = () => {
                     <p className=" text-black  font-bold  ">Total Order</p>
                   </div>
                 </Tab>
-                <Tab className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer">
+                <Tab className="p-4 md:w-1/3 sm:w-1/2 w-full cursor-pointer hover:transition-all hover:duration-500 hover:transform hover:scale-75 hover:z-50 hover:filter hover:ease-in duration-500">
                   <div className=" border bg-white hover:bg-white shadow-md shadow-blue-gray-500 px-4 py-3 rounded-xl">
                     <div className="text-[#fea928] w-12 h-12 mb-3 inline-block">
                       <svg

@@ -84,7 +84,7 @@ const CartPage = () => {
     if (isAddress == false) {
       return navigate("/UserAdress");
     }
-
+    if (cart.length > 0) {
     var options = {
       key: "rzp_test_M1n7cG9Mgzq6WM",
       key_secret: "aN8hF5KVXSzu42QuupFDTiEd",
@@ -151,6 +151,11 @@ const CartPage = () => {
     var pay = new window.Razorpay(options);
     pay.open();
     console.log(pay);
+  } else {
+    toast.error("Cart Is Empty", {
+      toastId: 1,
+    });
+  }
   };
 
   const CheckOutHandlerDelete = async () => {
@@ -171,7 +176,7 @@ const CartPage = () => {
     if (isAddress == false) {
       return navigate("/UserAdress");
     }
-
+    if (cart.length > 0) {
     var options = {
       key: "rzp_test_M1n7cG9Mgzq6WM",
       key_secret: "aN8hF5KVXSzu42QuupFDTiEd",
@@ -183,7 +188,7 @@ const CartPage = () => {
       handler: function (response) {
         console.log(response);
         try {
-          if (cart.length > 0) {
+          
             const date = new Date();
             cart.map((product) => {
               return addDoc(collection(fireDB, "user", currentUser, "buyedItems"), {
@@ -220,11 +225,7 @@ const CartPage = () => {
                 time: new Date().toLocaleTimeString(),
               });
             });
-          } else {
-            toast.error("Cart Is Empty", {
-              toastId: 1,
-            });
-          }
+          
         } catch (error) {
           console.error("Error adding documents to Firestore:", error);
         }
@@ -243,6 +244,12 @@ const CartPage = () => {
     var pay = new window.Razorpay(options);
     pay.open();
     console.log(pay);
+
+  } else {
+    toast.error("Cart Is Empty", {
+      toastId: 1,
+    });
+  }
   };
 
   const QuantityIncrementHandler = async (id) => {

@@ -39,7 +39,7 @@ const ProductDetail = ({ GetAllProducts }) => {
 
   return (
     <div>
-      <div className="py-5 flex justify-between mt-5 items-center">
+      <div className="py-5 flex justify-between flex-wrap mt-5 items-center">
         <h1 className=" text-xl text-black font-bold">All Product</h1>
         <ProductSeacrh />
         <Link to={"/addProduct"}>

@@ -79,11 +79,11 @@ const Navbar = () => {
         <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
           <div className="left py-3 lg:py-0">
             <Link to={"/"}>
-              <h2 className=" font-extrabold text-orange-900   text-3xl text-center">SnapStore</h2>
+              <h2 className=" font-extrabold text-orange-900   text-3xl text-center">SkyloStore</h2>
             </Link>
           </div>
           <Searchbar />
-          <div className="right flex justify-center items-center  mb-4 lg:mb-0">
+          <div className="right flex justify-center items-center sm:mt-0 mt-4  sm:mb-4 lg:mb-0">
             <ul className="flex gap-4 space-x-3 items-center text-black font-medium text-md px-5">
               {isLog && (
                 <li className="gap-4">
