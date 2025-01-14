@@ -19,9 +19,7 @@ const Navbar = () => {
   const isLog = useSelector((state) => state.loaderState.isLogged);
 
   const [currentUser, setCurrentUser] = useState(null);
-  console.log(currentUser);
   const [currentUserName,setCurrentUserName]=useState()
-  console.log(currentUserName);
   
   
 
@@ -62,7 +60,6 @@ const Navbar = () => {
   const carts = async () => {
     const snapShot = await getDocs(collection(fireDB, "user", currentUser, "productCart"));
     const res = snapShot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    console.log(res);
     
 
     dispatch(cartLengthHandler(res.length));
@@ -75,7 +72,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-[#f7f3ed] sticky top-0 py-2 z-[999] shadow-md shadow-black">
+      <nav className="bg-[#f7f3ed] sticky top-0 py-2 z-[999] shadow-sm shadow-gray-600">
         <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
           <div className="left py-3 lg:py-0">
             <Link to={"/"}>

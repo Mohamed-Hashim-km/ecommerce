@@ -15,7 +15,6 @@ const ProductInformation = () => {
     const navigate = useNavigate();
   
     const [product, setProduct] = useState({});
-    console.log(product);
   
     const fetchCartProductInfo = async () => {
       setIsLoad(true)

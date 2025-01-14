@@ -13,7 +13,6 @@ const UserDashBoard = () => {
   const [user, setUser] = useState([]);
   const [buyList, setBuyList] = useState([]);
   const [currentUser, setcurrentUser] = useState();
-  console.log(buyList);
 
   const [isLoad, setIsLoad] = useState(false);
 
@@ -30,7 +29,6 @@ const UserDashBoard = () => {
   const recentLoggedUser = async (userid) => {
     const userDetail = query(doc(fireDB, "user", userid));
     const querysnapshot = await getDoc(userDetail);
-    console.log(querysnapshot.data());
     setUser(querysnapshot.data());
   };
 

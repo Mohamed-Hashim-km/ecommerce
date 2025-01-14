@@ -19,7 +19,6 @@ const ProductInfo = () => {
   const navigate = useNavigate();
 
   const [product, setProduct] = useState({});
-  console.log(product);
 
   const fetchCartProductInfo = async () => {
    setIsLoad(true)
@@ -207,7 +206,7 @@ const ProductInfo = () => {
             <a
               href="#"
               onClick={AddCartHandler}
-              className="uppercase py-2 px-4 rounded-lg bg-pink-500 border-2 border-transparent text-white text-md mr-4 hover:bg-pink-400"
+              className="uppercase py-2 px-4 rounded-lg bg-orange-600 border-2 border-transparent text-white text-md mr-4 "
             >
               ADD TO CART
             </a>

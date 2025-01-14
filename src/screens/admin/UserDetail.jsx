@@ -10,12 +10,10 @@ const UserDetail = () => {
   const addAllUsers = async () => {
     const snapshot = await getDocs(collection(fireDB, "user"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
-    console.log(data);
 
     setUser(data);
   };
 
-  console.log(user);
 
   // console.log(product);
   useEffect(() => {

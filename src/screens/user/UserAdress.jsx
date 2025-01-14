@@ -11,7 +11,6 @@ const UserAdress = () => {
   const [user, setcurrentUser] = useState();
   const navigate = useNavigate();
   const [currentAddressId, setCurrentAddressId] = useState(null);
-  console.log(currentAddressId);
 
   const name = useRef("");
   const address = useRef("");
@@ -25,12 +24,9 @@ const UserAdress = () => {
     setcurrentUser(user.uid);
   });
 
-  console.log(user);
-
   const CheckAdress = async () => {
     const docRef = await getDocs(collection(fireDB, "user", user, "Address"));
     const address = docRef.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    console.log(address);
     const id = address.reduce((acc, value) => {
       return (acc = value.id);
     }, 0);

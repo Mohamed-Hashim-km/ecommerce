@@ -94,7 +94,6 @@ const CartPage = () => {
       name: "SnapStore",
       description: "for testing purpose",
       handler: function (response) {
-        console.log(response);
 
         try {
           const date = new Date();
@@ -128,7 +127,6 @@ const CartPage = () => {
             time: new Date().toLocaleTimeString(),
           });
         } catch (error) {
-          console.log(error);
         }
 
         toast.success("Payment Successful", {
@@ -150,7 +148,6 @@ const CartPage = () => {
 
     var pay = new window.Razorpay(options);
     pay.open();
-    console.log(pay);
   } else {
     toast.error("Cart Is Empty", {
       toastId: 1,
@@ -186,7 +183,6 @@ const CartPage = () => {
       name: "SnapStore",
       description: "for testing purpose",
       handler: function (response) {
-        console.log(response);
         try {
           
             const date = new Date();
@@ -243,7 +239,6 @@ const CartPage = () => {
 
     var pay = new window.Razorpay(options);
     pay.open();
-    console.log(pay);
 
   } else {
     toast.error("Cart Is Empty", {
@@ -263,7 +258,6 @@ const CartPage = () => {
       });
       CartListHandler();
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -280,7 +274,6 @@ const CartPage = () => {
         CartListHandler();
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

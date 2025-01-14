@@ -15,7 +15,6 @@ const ProductDetail = ({ GetAllProducts }) => {
   const GetProducts = async () => {
     const snapshot = await getDocs(collection(fireDB, "products"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
-    console.log(data);
 
     setProduct(data);
   };
@@ -25,7 +24,6 @@ const ProductDetail = ({ GetAllProducts }) => {
   }, []);
 
   const ProductDeleteHandler = async (id) => {
-    console.log(id);
 
     try {
       await deleteDoc(doc(fireDB, "products", id));

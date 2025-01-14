@@ -8,14 +8,12 @@ const OrderDetail = () => {
   const OrderDetailes = async () => {
     const snapshot = await getDocs(collection(fireDB, "saleItems"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
-    console.log(data);
     // const sorted=data.sort((a, b) => new Date(a.date) - new Date(b.date))
 
 
     setOrderDetailes(data);
   };
 
-  console.log(orderDetailes);
   
 
  let orders=[]

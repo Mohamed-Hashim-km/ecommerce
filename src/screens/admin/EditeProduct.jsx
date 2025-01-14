@@ -75,7 +75,6 @@ const EditeProduct = () => {
     }),
   });
 
-  console.log(productData);
 
   const ProductEditHandler = () => {
     if (product.title == "" || product.price == "" || product.productImageUrl == "" || product.category == "" || product.description == "" || product.currentPrice == "") {

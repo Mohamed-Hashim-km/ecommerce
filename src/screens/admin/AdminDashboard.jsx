@@ -26,7 +26,6 @@ const AdminDashboard = () => {
   const GetAllProducts = async () => {
     const snapshot = await getDocs(collection(fireDB, "products"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
-    console.log(data);
 
     setProduct(data);
   };
@@ -38,12 +37,10 @@ const AdminDashboard = () => {
   const OrderDetailes = async () => {
     const snapshot = await getDocs(collection(fireDB, "saleItems"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
-    console.log(data);
 
     setOrderDetailes(data);
   };
 
-  console.log(orderDetailes);
 
   useEffect(() => {
     OrderDetailes();
@@ -52,12 +49,10 @@ const AdminDashboard = () => {
   const Allusers = async () => {
     const snapshot = await getDocs(collection(fireDB, "user"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
-    console.log(data);
 
     setUser(data);
   };
 
-  console.log(user);
 
   // console.log(product);
   useEffect(() => {
@@ -69,11 +64,9 @@ const AdminDashboard = () => {
   const recentLoggedUser = async (userid) => {
     const productAll = query(doc(fireDB, "user", userid));
     const querysnapshot = await getDoc(productAll);
-    console.log(querysnapshot.data());
     setadmin(querysnapshot.data());
   };
 
-  console.log(admin);
 
   const LoggoutHandler = () => {
     auth
@@ -85,7 +78,6 @@ const AdminDashboard = () => {
       })
       .catch((error) => {
         toast.error("Error");
-        console.log(error);
       });
   };
 

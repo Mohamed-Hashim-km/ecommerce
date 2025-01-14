@@ -44,7 +44,6 @@ const Signup = () => {
       navigate("/login");
       setIsLoad(false);
     } catch (error) {
-      console.log(error);
       toast.error("Email Alredy Used");
       setIsLoad(false);
     }

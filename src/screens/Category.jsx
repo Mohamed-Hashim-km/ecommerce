@@ -24,7 +24,6 @@ const Category = () => {
     setIsLoad(false)
   };
 
-  console.log(product);
 
   useEffect(() => {
     GetAllProducts();
@@ -34,7 +33,6 @@ const Category = () => {
 
   const [currentUser, setcurrentUser] = useState();
 
-  console.log(currentUser);
 
   const AddCartHandler = async (product) => {
     if (currentUser == undefined) {

@@ -4,17 +4,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, fireDB } from "../../firebase/FirebaseConfig";
 import { collection, deleteDoc, doc, getDoc, getDocs, query } from "firebase/firestore";
 import Loader from "../../components/Loader";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 const UserOrderDetails = () => {
   const [user, setUser] = useState([]);
   const [buyList, setBuyList] = useState([]);
   const [address, UserAdress] = useState([]);
   const [isLoad, setIsLoad] = useState(false);
-  console.log(buyList);
   const { id } = useParams();
-  console.log(id);
 
-  console.log(address);
 
   const UserBuyList = async () => {
     setIsLoad(true);
@@ -44,6 +41,7 @@ const UserOrderDetails = () => {
         <Loader />
       ) : (
         <>
+        
           {buyList.length > 0 ? (
             <>
               {address.map((item, index) => {
@@ -81,8 +79,10 @@ const UserOrderDetails = () => {
                   </div>
                 );
               })}
+<div className="container border shadow-lg shadow-black flex justify-center ml-24 mt-10"> 
+<Link to={"/admin-dashboard"}><button className="px-10 py-1 flex justify-end rounded-md text-white bg-[#fea928]">Go Back</button></Link>
 
-              <div className=" container mx-auto px-4 pb-5 lg:py-8">
+              <div className=" container mx-auto px-4 pb-5 ">
                 <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
                   <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                     <div className="mx-auto max-w-5xl">
@@ -147,10 +147,13 @@ const UserOrderDetails = () => {
                   </div>
                 </section>
               </div>
+              </div>
             </>
           ) : (
             <h1 className="text-center font-extrabold text-lg">No Orders</h1>
+           
           )}
+         
         </>
       )}
     </>

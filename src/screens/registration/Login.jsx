@@ -31,11 +31,9 @@ const Login = () => {
       const data = await signInWithEmailAndPassword(auth, email, password);
       const user = data.user;
       const res = getDoc(doc(fireDB, "user", user.uid));
-      console.log(res);
 
       const userData = (await res).data();
 
-      console.log(userData);
 
       if (userData.role) {
         navigate(`/admin-dashboard`);
@@ -51,7 +49,6 @@ const Login = () => {
       } 
     } catch (error) {
       setIsLoad(false);
-      console.log(error);
       toast.error("Invalid email or password")
     }finally {
       setIsLoad(false);

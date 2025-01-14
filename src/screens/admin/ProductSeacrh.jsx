@@ -12,7 +12,6 @@ const ProductSeacrh = () => {
     const snapshot = await getDocs(collection(fireDB, "products"));
     const data = snapshot.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
 
-    console.log(data);
 
     setData(data);
   };
@@ -21,7 +20,6 @@ const ProductSeacrh = () => {
     GetAllProducts();
   }, [search]);
 
-  console.log(data);
 
   const filterSearchData = data.filter((obj) => obj.title.toLowerCase().includes(search)).slice(0, 8);
 

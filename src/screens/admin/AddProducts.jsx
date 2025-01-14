@@ -75,7 +75,6 @@ const AddProducts = () => {
       setIsLoad(false)
       
     } catch (error) {
-      console.log(error);
       setIsLoad(false)
       toast.error("Add product failed", {
         toastId: 1,
