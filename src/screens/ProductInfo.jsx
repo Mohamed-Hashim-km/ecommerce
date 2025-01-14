@@ -171,7 +171,7 @@ const ProductInfo = () => {
     {isLoad ? (
   <Loader />
 ) : (
-  <main className="dark:bg-gray-800 bg-white relative overflow-hidden h-[80vh]">
+  <main className="dark:bg-gray-800 bg-white relative  h-[80vh]">
     <div className="bg-white dark:bg-gray-800 flex mt-[150px] relative z-20 items-center overflow-hidden">
       <div className="container mx-auto px-6 sm:px-8 md:px-12 flex flex-col lg:flex-row relative">
         {/* Image on top for mobile, to the right for larger screens */}

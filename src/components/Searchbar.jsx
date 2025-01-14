@@ -19,7 +19,7 @@ const Searchbar = () => {
     GetAllProducts();
   }, [search]);
 
-  const filterSearchData = data.filter((obj) => obj.description.toLowerCase().includes(search)).slice(0, 8);
+  const filterSearchData = data.filter((obj) => obj.description.toLowerCase().includes(search.toLocaleLowerCase())).slice(0, 8);
 
   return (
     <>
