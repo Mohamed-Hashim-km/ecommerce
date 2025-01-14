@@ -202,7 +202,7 @@ const ProductInfo = () => {
               <span>Rs.{product.currentPrice}</span>
             </p>
           </div>
-          <div className="flex mt-8">
+          <div className="flex mt-8 pb-10 sm:pb-0">
             <a
               href="#"
               onClick={AddCartHandler}
