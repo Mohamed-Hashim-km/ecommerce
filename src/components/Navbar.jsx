@@ -80,7 +80,7 @@ const Navbar = () => {
             </Link>
           </div>
           <Searchbar />
-          <div className="right flex justify-center items-center sm:mt-0 mt-4  sm:mb-4 lg:mb-0">
+          <div className="right flex justify-center items-center sm:mt-0 mt-4 md:mt-4 lg:mt-0  sm:mb-4 lg:mb-0">
             <ul className="flex gap-4 space-x-3 items-center text-black font-medium text-md px-5">
               {isLog && (
                 <li className="gap-4">

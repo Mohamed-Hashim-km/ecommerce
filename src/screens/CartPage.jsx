@@ -312,7 +312,7 @@ const CartPage = () => {
                                 <p className="text-sm font-medium text-gray-900">&nbsp;&nbsp;{product.currentPrice}</p>
                               </div>
                               <button type="button" onClick={() => BuynowHandler(product)} className="mt-8 text-white py-1 text-sm px-4 bg-[#fea928] rounded-md">
-                                Buynow
+                                Buy now
                               </button>
                             </div>
                           </div>
