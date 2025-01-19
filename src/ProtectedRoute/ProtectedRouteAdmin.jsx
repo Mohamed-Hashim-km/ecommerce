@@ -10,15 +10,15 @@ import { loaderHandler } from "../store/isWork";
 export const ProtectedRouteAdmin = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  const [isLoader,setIsLoader]=useState(false)
+  const [isLoader, setIsLoader] = useState(false);
   const dispatch = useDispatch();
 
   const recentLoggedUser = async (userid) => {
-    setIsLoader(true)
+    setIsLoader(true);
     const productAll = query(doc(fireDB, "user", userid));
     const querysnapshot = await getDoc(productAll);
     setUser(querysnapshot.data());
-    setIsLoader(false)
+    setIsLoader(false);
   };
 
   useEffect(() => {
