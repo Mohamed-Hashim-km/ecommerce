@@ -40,25 +40,29 @@ const Category = () => {
   const navigate = useNavigate();
   return (
     <div data-aos="zoom-in-up">
-      <div className="flex flex-col  mt-5">
-        <div className="flex overflow-x-scroll overflow-y-hidden lg:justify-center  hide-scroll-bar">
-          <div className="flex ">
-            {category.map((item, index) => {
-              return (
-                <div key={index} className="px-3 lg:px-10" onClick={() => navigate(`/category/${item.name}`)}>
-                  <div className=" w-16  lg:w-24 lg:h-24 max-w-xs   transition-all  cursor-pointer mb-1 ">
-                    <div className="flex justify-center   mb-1">
-                      <img className="rounded-2xl h-[10vh] object-contain" src={item.image} alt="img" />
-                    </div>
-                    <h1 className=" text-sm lg:text-lg text-center font-medium title-font first-letter:uppercase ">{item.name}</h1>
+      <div className="flex flex-col mt-5">
+        <div className="flex overflow-x-scroll lg:pb-[16px] pb-0  lg:justify-center hide-scroll-bar">
+          <div className="flex">
+            {category.map((item, index) => (
+              <div
+                key={item.id || index} 
+                className="px-3 lg:px-10"
+                onClick={() => navigate(`/category/${item.name}`)}
+                role="button" 
+                tabIndex={0} 
+              >
+                <div className="w-16 lg:w-24 lg:h-24 max-w-xs transition-all cursor-pointer mb-1">
+                  <div className="flex justify-center mb-1">
+                    <img className="rounded-2xl h-[10vh] object-contain" src={item.image} alt={`Image of ${item.name}`} />
                   </div>
+                  <h1 className="text-sm lg:text-lg text-center font-medium title-font first-letter:uppercase">{item.name}</h1>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </div>
-      <style dangerouslySetInnerHTML={{ __html: ".hide-scroll-bar {  -ms-overflow-style: none;  scrollbar-width: none;}.hide-scroll-bar::-webkit-scrollbar {  display: none;}" }} />
+      <style dangerouslySetInnerHTML={{ __html: ".hide-scroll-bar { -ms-overflow-style: none; scrollbar-width: none; } .hide-scroll-bar::-webkit-scrollbar { display: none; }" }} />
     </div>
   );
 };

@@ -47,7 +47,10 @@ const UserOrderDetails = () => {
               {address.map((item, index) => {
                 return (
                   <div className="container mx-auto flex justify-center   top-0 sticky z-[999] " key={index}>
+                    
                     <div className="bg-white flex py-6 shadow-lg shadow-black   rounded-xl ">
+<Link to={"/admin-dashboard"}><button className="ml-3 px-10 py-1 flex justify-end rounded-md text-white bg-[#fea928]">Go Back</button></Link>
+
                       <div className="px-6 ">
                         <h2 className="title-font font-extrabold text-lg  text-gray-900 tracking-widest ">NAME</h2>
                         <p className="mt-1">{item.name}</p>
@@ -80,7 +83,6 @@ const UserOrderDetails = () => {
                 );
               })}
 <div className="container border shadow-lg shadow-black flex justify-center ml-24 mt-10"> 
-<Link to={"/admin-dashboard"}><button className="px-10 py-1 flex justify-end rounded-md text-white bg-[#fea928]">Go Back</button></Link>
 
               <div className=" container mx-auto px-4 pb-5 ">
                 <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">

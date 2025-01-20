@@ -135,7 +135,7 @@ const UserAdress = () => {
                       </div>
 
                       <div className="md:col-span-1">
-                        <label for="zipcode">Zipcode</label>
+                        <label for="zipcode">Post code</label>
                         <input ref={zipCode} type="number" className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" />
                       </div>
 
