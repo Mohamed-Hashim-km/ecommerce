@@ -60,7 +60,7 @@ const UserDashBoard = () => {
           <div className="top ">
             <div className=" bg-white py-5 shadow-lg shadow-black  border ">
               <div className="flex justify-center">
-                <img src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="" />
+                <img src="https://cdn-icons-png.flaticon.com/128/3135/3135715.png" alt="" />
               </div>
 
               <div className="">

@@ -102,7 +102,7 @@ const AdminDashboard = () => {
           <div className="mid mb-5">
             <div className=" bg-white py-5 rounded-xl border shadow-md shadow-blue-gray-500">
               <div className="flex justify-center">
-                <img src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="" />
+                <img src="https://cdn-icons-png.flaticon.com/128/16157/16157793.png" alt="" />
               </div>
               <div className="">
                 <h1 className=" text-center text-lg text-black">

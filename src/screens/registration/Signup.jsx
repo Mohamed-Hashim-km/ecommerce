@@ -80,7 +80,7 @@ const Signup = () => {
                     <label for="password" className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800">Password</label>
                 </div>
                 <div className="my-6">
-                    <button onClick={() => SighnupHandler(name, email, password)} type="button" className="w-full rounded-md bg-orange-700 px-3 py-4 text-white focus:bg-gray-600 focus:outline-none">Signup</button>
+                    <button onClick={() => SighnupHandler(name, email, password)} type="button" className="w-full rounded-md bg-orange-700 px-3 py-4 text-white focus:bg-orange-800 focus:outline-none">Signup</button>
                 </div>
                 <p className="text-center text-sm text-gray-500">Have account?
                     <Link to={"/login"}><a 

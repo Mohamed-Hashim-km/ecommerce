@@ -11,7 +11,7 @@ const Footer = () => {
     <div className="shadow-black bg-[#f7f3ed] shadow-2xl cursor-text">
      <div >
     <div className="max-w-screen-lg px-4 sm:px-6 text-gray-800 sm:grid md:grid-cols-4 sm:grid-cols-2 mx-auto">
-        <div className="p-5">
+        <div className="p-5 mt-5 sm:mt-0">
         <h2 className=" font-extrabold text-orange-900   text-3xl text-center">SkyloStore</h2>
         </div>
         <div className="p-5">
